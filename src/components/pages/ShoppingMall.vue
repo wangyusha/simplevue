@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <!--搜索-->
     <v-search></v-search>
     <!--轮播-->
@@ -42,29 +42,29 @@
     <!--floor one area-->
     <div class="floor">
       <div class="floor-title"><span class="num">1F</span> <span>休闲食品</span></div>
-      <div class="floor-anomaly">
-        <div class="floor-one"><img :src="floor1_0.image" width="100%" /></div>
-        <div>
-          <div class="floor-two"><img :src="floor1_2.image" width="100%" /></div>
-          <div><img :src="floor1_2.image" width="100%" /></div>
-        </div>
-      </div>
-
+      <floorComponent :floorData="floor1"></floorComponent>
+      <div class="floor-title"><span class="num">2F</span> <span>酒水副食</span></div>
+      <floorComponent :floorData="floor2"></floorComponent>
+      <div class="floor-title"><span class="num">3F</span> <span>新鲜水果</span></div>
+      <floorComponent :floorData="floor3"></floorComponent>
     </div>
   </div>
 </template>
 
 <script>
-import vSearch from "../common/Search.vue";
-import "swiper/dist/css/swiper.css";
 
+import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+
+import vSearch from "../common/Search.vue";
+import floorComponent from '../component/floorComponent.vue'
 export default {
     name: "ShoppingMall",
     components: {
         vSearch,
         swiper,
-        swiperSlide
+        swiperSlide,
+        floorComponent,
     },
     data() {
         return {
@@ -74,9 +74,8 @@ export default {
             recommendGoods: [],
             swiperOption: {},
             floor1: [],
-            floor1_0:{},
-            floor1_1:{},
-            floor1_2:{}
+            floor2:[],
+            floor3:[],
         };
     },
     created() {
@@ -95,9 +94,9 @@ export default {
                 this.recommendGoods = data.recommend;
 
                 this.floor1 = data.floor1;
-                this.floor1_0 = this.floor1[0];
-                this.floor1_1 = this.floor1[1];
-                this.floor1_2 = this.floor1[2];
+                this.floor2 = data.floor2;
+                this.floor3 = data.floor3;
+                
             })
             .catch(err => {});
     }
