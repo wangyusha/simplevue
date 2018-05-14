@@ -41,12 +41,9 @@
     </div>
     <!--floor one area-->
     <div class="floor">
-      <div class="floor-title"><span class="num">1F</span> <span>休闲食品</span></div>
-      <floorComponent :floorData="floor1"></floorComponent>
-      <div class="floor-title"><span class="num">2F</span> <span>酒水副食</span></div>
-      <floorComponent :floorData="floor2"></floorComponent>
-      <div class="floor-title"><span class="num">3F</span> <span>新鲜水果</span></div>
-      <floorComponent :floorData="floor3"></floorComponent>
+      <floorComponent :floorData="floor1" :floorTitle="floorName.floor1" :num="1"></floorComponent>
+      <floorComponent :floorData="floor2" :floorTitle="floorName.floor2" :num="2"></floorComponent>
+      <floorComponent :floorData="floor3" :floorTitle="floorName.floor3" :num="3"></floorComponent>
     </div>
   </div>
 </template>
@@ -76,6 +73,7 @@ export default {
             floor1: [],
             floor2:[],
             floor3:[],
+            floorName:{}
         };
     },
     created() {
@@ -96,7 +94,9 @@ export default {
                 this.floor1 = data.floor1;
                 this.floor2 = data.floor2;
                 this.floor3 = data.floor3;
-                
+
+                this.floorName = data.floorName;
+
             })
             .catch(err => {});
     }
@@ -165,20 +165,5 @@ export default {
 .floor-two {
     border-bottom: 1px solid #ddd;
 }
-.floor-title{
-  text-align: center;
-  color: #e5017d;
-  background-color: #f1efef;
-  padding: 0.5rem 0;
-  font-size: 18px;
-}
-.floor-title .num {
-  color: #fff;
-  display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-color: #e5017d;
-  border-radius: 50%;
-  line-height: 1.5rem;
-}
+
 </style>

@@ -1,9 +1,9 @@
- 
+
 <template>
     <div>
         <!--floor one area-->
         <div class="floor">
- 
+            <div class="floor-title"> <span class="num">{{num}}F</span>{{floorTitle}} </div>
             <div class="floor-anomaly">
                 <div class="floor-one"><img v-lazy="floorData0.image" width="100%" /></div>
                 <div>
@@ -11,20 +11,20 @@
                     <div><img v-lazy="floorData2.image" width="100%" /></div>
                 </div>
             </div>
- 
+
             <div class="floor-rule">
                 <div v-for="(item ,index) in floorData.slice(3)" :key="index">
                     <img v-lazy="item.image" width="100%"/>
                 </div>
             </div>
- 
+
         </div>
     </div>
 </template>
- 
+
 <script>
     export default {
-        props:['floorData'],
+        props:['floorData','floorTitle','num'],
         data() {
             return {
                 floorData0:{},
@@ -34,7 +34,7 @@
         },
         created(){
             //这里写得不到数据，应为数据是延迟返回的
-            
+
         },
         watch:{
             floorData:function(val){
@@ -44,10 +44,10 @@
                 this.floorData2=this.floorData[2]
             }
         }
- 
+
     }
 </script>
- 
+
 <style scoped>
   .floor-anomaly{
       display: flex;
@@ -57,24 +57,24 @@
   }
   .floor-anomaly div{
      width:10rem;
-    
+
      box-sizing: border-box;
      -webkit-box-sizing: border-box;
   }
   .floor-one{
       border-right:1px solid #ddd;
-      
+
   }
   .floor-two{
       border-bottom:1px solid #ddd;
   }
-  
+
   .floor-rule{
       display: flex;
       flex-direction: row;
       flex-wrap:wrap;
       background-color: #fff;
- 
+
   }
   .floor-rule div{
       -webkit-box-sizing: border-box;
@@ -84,5 +84,22 @@
   }
   .floor-rule div:nth-child(odd){
       border-right: 1px solid #ddd;
+  }
+  .floor-title{
+    text-align: center;
+    color: #e5017d;
+    background-color: #f1efef;
+    padding: 0.5rem 0;
+    font-size: 18px;
+  }
+  .floor-title .num {
+    color: #fff;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #e5017d;
+    border-radius: 50%;
+    line-height: 1.5rem;
+    margin-right: 0.5rem;
   }
 </style>
