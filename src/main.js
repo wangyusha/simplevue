@@ -3,11 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload} from 'vant';
+import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload,List} from 'vant';
 import './uitil/rem.js';
 import axios from 'axios';
 
-Vue.use(Button).use(Row).use(Col).use(Icon).use(Swipe).use(SwipeItem).use(Lazyload, {loading:'',error:'',preload:''});
+Vue.use(Button).use(Row).use(Col).use(Icon)
+  .use(Swipe).use(SwipeItem).use(Lazyload, {loading:'',error:'',preload:''})
+  .use(List);
 
 Vue.config.productionTip = false;
 
