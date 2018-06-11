@@ -15,6 +15,7 @@
         placeholder="请输入用户名"
         required
         @click-icon="username = ''"
+        error-message="请输入有户名"
       />
 
       <van-field
@@ -23,9 +24,10 @@
         label="密码"
         placeholder="请输入密码"
         required
+        error-message="请输入密码"
       />
       <div class="register-button">
-        <van-button type="primary" size="large">马上注册</van-button>
+        <van-button type="primary" size="large" @click="registerUser">马上注册</van-button>
       </div>
     </div>
 
@@ -33,6 +35,7 @@
 </template>
 
 <script>
+  import url from '@/serviceAPI.config.js';
     export default {
         name: "register",
       data() {
@@ -44,7 +47,25 @@
       methods: {
           goBack() {
             this,$router.go(-1);
-          }
+          },
+        registerUser() {
+            console.log(this.username,this.password)
+            this.$http({
+              url: url.registerUser,
+              method: 'post',
+              data:{
+                username:this.username,
+                password:this.password
+              }
+            })
+              .then(response => {
+                console.log(response)
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+
+        }
 
       }
     }
