@@ -15,7 +15,6 @@
         placeholder="请输入用户名"
         required
         @click-icon="username = ''"
-        error-message="请输入有户名"
       />
 
       <van-field
@@ -24,7 +23,6 @@
         label="密码"
         placeholder="请输入密码"
         required
-        error-message="请输入密码"
       />
       <div class="register-button">
         <van-button type="primary" size="large" @click="registerUser">马上注册</van-button>
@@ -54,15 +52,19 @@
               url: url.registerUser,
               method: 'post',
               data:{
-                username:this.username,
+                userName:this.username,
                 password:this.password
               }
             })
               .then(response => {
-                console.log(response)
+                  if(response.data.code=200){
+                    this.$toast.success('注册成功')
+                  }else {
+                    this.$toast.fail('注册失败')
+                  }
               })
               .catch((error) => {
-                console.log(error)
+                this.$toast.fail('注册失败')
               })
 
         }
