@@ -15,6 +15,7 @@
         placeholder="请输入用户名"
         required
         @click-icon="username = ''"
+        :error-message="usernameErrorMsg"
       />
 
       <van-field
@@ -23,9 +24,10 @@
         label="密码"
         placeholder="请输入密码"
         required
+        :error-message="passwordErrorMsg"
       />
       <div class="register-button">
-        <van-button type="primary" size="large" @click="registerUser">马上注册</van-button>
+        <van-button type="primary" size="large" @click=" registerAction" :loading="openLoading">马上注册</van-button>
       </div>
     </div>
 
@@ -39,7 +41,10 @@
       data() {
           return {
             username: '',
-            password: ''
+            password: '',
+            openLoading: false,
+            usernameErrorMsg:'',   //当用户名出现错误的时候
+            passwordErrorMsg:'',   //当密码出现错误的时候
           }
       },
       methods: {
@@ -47,7 +52,7 @@
             this,$router.go(-1);
           },
         registerUser() {
-            console.log(this.username,this.password)
+            this.openLoading = true;
             this.$http({
               url: url.registerUser,
               method: 'post',
@@ -58,15 +63,37 @@
             })
               .then(response => {
                   if(response.data.code=200){
-                    this.$toast.success('注册成功')
+                    this.$toast.success('注册成功');
+                    this.$router.push('/')
                   }else {
                     this.$toast.fail('注册失败')
+                    this.openLoading = false;
                   }
               })
               .catch((error) => {
-                this.$toast.fail('注册失败')
+                this.$toast.fail('注册失败');
+                this.openLoading = false;
               })
 
+        },
+        checkForm(){
+          let isOk= true
+          if(this.username.length<5){
+            this.usernameErrorMsg="用户名不能小于5位"
+            isOk= false
+          }else{
+            this.usernameErrorMsg=''
+          }
+          if(this.password.length<6){
+            this.passwordErrorMsg="密码不能少于6位"
+            isOk= false
+          }else{
+            this.passwordErrorMsg=''
+          }
+          return isOk
+        },
+        registerAction() {
+            this.checkForm() && this.registerUser()
         }
 
       }

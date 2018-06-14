@@ -8,6 +8,8 @@ const userSchema = new Schema({
   password: String,
   createAt: {type: Date,default: Date.now()},
   lastLogin: {type: Date,default: Date.now()}
+},{
+  collection: 'user'
 });
 
 //发布模型
