@@ -93,7 +93,7 @@
           return isOk
         },
         registerAction() {
-            this.checkForm() && this.registerUser()
+            this.checkForm() && this.registerUser();
         }
 
       }
