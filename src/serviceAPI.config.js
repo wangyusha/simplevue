@@ -4,6 +4,7 @@ const URL = {
   getShoppingMallInfo:BASEURL+'index',
   getGoodsInfo:BASEURL+'getGoodsInfo',
   registerUser:LOCALURL+'register',   //用户注册接口
+  loginUser:LOCALURL + 'login'  //登录接口
 }
 
 export default URL;

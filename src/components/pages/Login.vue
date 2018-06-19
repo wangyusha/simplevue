@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      title="用户注册"
+      title="用户登录"
       left-text="返回"
       left-arrow
       @click-left="goBack"
@@ -27,7 +27,7 @@
         :error-message="passwordErrorMsg"
       />
       <div class="register-button">
-        <van-button type="primary" size="large" @click=" registerAction" :loading="openLoading">马上注册</van-button>
+        <van-button type="primary" size="large" @click=" loginAction" :loading="openLoading">登录</van-button>
       </div>
     </div>
 
@@ -37,7 +37,7 @@
 <script>
   import url from '@/serviceAPI.config.js';
     export default {
-        name: "register",
+        name: "login",
       data() {
           return {
             username: '',
@@ -51,10 +51,10 @@
           goBack() {
             this,$router.go(-1);
           },
-        registerUser() {
+        loginUser() {
             this.openLoading = true;
             this.$http({
-              url: url.registerUser,
+              url: url.loginUser,
               method: 'post',
               data:{
                 userName:this.username,
@@ -62,16 +62,16 @@
               }
             })
               .then(response => {
-                  if(response.data.code===200){
-                    this.$toast.success('注册成功');
-                    this.$router.push('/login')
+                  if(response.data.code==200 && response.data.message){
+                    this.$toast.success('登录成功');
+                    this.$router.push('/')
                   }else {
-                    this.$toast.fail('注册失败')
+                    this.$toast.fail(response.data.message)
                     this.openLoading = false;
                   }
               })
               .catch((error) => {
-                this.$toast.fail('注册失败');
+                this.$toast.fail('登录失败');
                 this.openLoading = false;
               })
 
@@ -92,8 +92,8 @@
           }
           return isOk
         },
-        registerAction() {
-            this.checkForm() && this.registerUser();
+        loginAction() {
+            this.checkForm() && this.loginUser();
         }
 
       }
