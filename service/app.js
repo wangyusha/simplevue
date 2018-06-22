@@ -7,7 +7,7 @@ const cros = require('koa2-cors');
 const onerror = require('koa-onerror')
 const {connect,initSchemas} = require('./database/init.js');
 const user = require('./appApi/User.js');
-
+const goods = require('./appApi/goods.js');
 // let router = new Router();
 // router.use('/user',user.routes())
 
@@ -21,10 +21,19 @@ onerror(app)
   //   console.log('插入成功')
   // })
 })();
-app.use(bodyParse());
+app.use(bodyParse({
+  enableTypes:['json', 'form', 'text']
+}));
 app.use(cros());
-app.use(user.routes())
+
+app.use(async (ctx, next) => {
+  const start = new Date()
+  await next()
+  const ms = new Date() - start
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+})
 app.use(user.routes(),user.allowedMethods())
+app.use(goods.routes(),goods.allowedMethods())
 // app.use(async (ctx) => {
 //   ctx.body = 'Koa is good'
 // })
