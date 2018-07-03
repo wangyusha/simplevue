@@ -5,8 +5,9 @@
       left-text="返回"
       left-arrow
       @click-left="goBack"
+      fixed
     />
-    <div v-html="goodsInfo.DETAIL"></div>
+    <div class="content" v-html="goodsInfo.DETAIL"></div>
   </div>
 </template>
 
@@ -44,5 +45,7 @@
 </script>
 
 <style scoped>
-
+.content{
+  padding: 46px 0 20px 0;
+}
 </style>
