@@ -5,15 +5,15 @@
         <div class="floor">
             <div class="floor-title"> <span class="num">{{num}}F</span>{{floorTitle}} </div>
             <div class="floor-anomaly">
-                <div class="floor-one"><img v-lazy="floorData0.image" width="100%" /></div>
+                <div class="floor-one" @click="goGoodsPage(floorData0.goodsId)"><img v-lazy="floorData0.image" width="100%" /></div>
                 <div>
-                    <div class="floor-two"><img v-lazy="floorData1.image" width="100%" /></div>
-                    <div><img v-lazy="floorData2.image" width="100%" /></div>
+                    <div class="floor-two" @click="goGoodsPage(floorData1.goodsId)"><img v-lazy="floorData1.image" width="100%" /></div>
+                    <div @click="goGoodsPage(floorData2.goodsId)"><img v-lazy="floorData2.image" width="100%" /></div>
                 </div>
             </div>
 
             <div class="floor-rule">
-                <div v-for="(item ,index) in floorData.slice(3)" :key="index">
+                <div v-for="(item ,index) in floorData.slice(3)" :key="index" @click="goGoodsPage(item.goodsId)">
                     <img v-lazy="item.image" width="100%"/>
                 </div>
             </div>
@@ -36,6 +36,12 @@
             //这里写得不到数据，应为数据是延迟返回的
 
         },
+      methods: {
+          goGoodsPage(goodsId) {
+            this.$router.push({name: 'Goods',query: {goodsId : goodsId}})
+          }
+
+      },
         watch:{
             floorData:function(val){
                 // console.log(this.floorData)
@@ -102,4 +108,5 @@
     line-height: 1.5rem;
     margin-right: 0.5rem;
   }
+
 </style>

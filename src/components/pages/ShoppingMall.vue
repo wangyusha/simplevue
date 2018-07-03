@@ -52,8 +52,7 @@
         <!--这里需要一个list组件-->
         <van-list>
             <van-col span="12" v-for="item in hotGoods" :key="item.goodsId">
-              <div><img v-lazy="item.image" alt="" width="100%"></div>
-              <div>{{item.name}}</div>
+              <goodsInfo :goodsId="item.goodsId" :goodsImage="item.image" :goodsName="item.name" :goodsPrice="item.price"></goodsInfo>
             </van-col>
         </van-list>
       </div>
@@ -64,10 +63,10 @@
 
   import "swiper/dist/css/swiper.css";
   import {swiper, swiperSlide} from "vue-awesome-swiper";
-
+  import url from '../../serviceAPI.config'
   import vSearch from "../common/Search.vue";
   import floorComponent from '../component/floorComponent.vue'
-
+  import goodsInfo from '../component/goodInfoComponent.vue'
   export default {
     name: "ShoppingMall",
     components: {
@@ -75,6 +74,7 @@
       swiper,
       swiperSlide,
       floorComponent,
+      goodsInfo
     },
     data() {
       return {
@@ -93,7 +93,7 @@
     created() {
       this.$http
         .get(
-          "https://www.easy-mock.com/mock/5ae268b700247c2aa1efe461/SimpleVue/homeList"
+          url.getShoppingMallInfo
         )
         .then(res => {
           // console.log(res.data);
@@ -196,5 +196,15 @@
     font-size:14px;
     height: 1.8rem;
     line-height:1.8rem;
+  }
+  .hot-area .hot-title{
+    text-align: center;
+    color: #e5017d;
+    background-color: #f1efef;
+    padding: 0.5rem 0;
+    font-size: 18px;
+  }
+  .hot-area .hot-name{
+    height: 3rem;
   }
 </style>
