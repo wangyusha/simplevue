@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const glob = require('glob');
 const {resolve} = require('path');
-const db = 'mongodb://localhost/simple-db';
+const db = 'mongodb://140.143.153.98/simple-db';
 mongoose.Promise = global.Promise;
 exports.connect = ()=> {
   mongoose.connect(db);
