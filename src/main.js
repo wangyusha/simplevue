@@ -3,13 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload,List,NavBar,Field,Toast,Tab, Tabs} from 'vant';
+import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload,List,NavBar,Field,Toast,Tab, Tabs, GoodsAction,
+  GoodsActionBigBtn,
+  GoodsActionMiniBtn} from 'vant';
 import './uitil/rem.js';
 import axios from 'axios';
 
 Vue.use(Button).use(Row).use(Col).use(Icon)
   .use(Swipe).use(SwipeItem).use(Lazyload, {loading:'',error:'',preload:''})
-  .use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs);
+  .use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(GoodsAction)
+  .use(GoodsActionBigBtn)
+  .use(GoodsActionMiniBtn);
 
 Vue.config.productionTip = false;
 

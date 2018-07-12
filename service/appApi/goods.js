@@ -87,23 +87,40 @@ router.post('/getDetailGoodsInfo',async(ctx) => {
 });
 
 /*
-* 商品列表
+* 读取大类别
 * */
-router.get('/goodsList',async(ctx) => {
-  let result = {
-    code:500,
-    message:'',
-    data:{
-      list:{}
-    }
+router.get('/getCategoryList',async(ctx) => {
+  try {
+    let Category = mongoose.model('Category');
+    let result = await Category.find().exec();
+    ctx.body = {code: 200,message: result}
+  }catch (err) {
+    ctx.body ={code: 500, message: err}
   }
- let goodsResult = await goodsInfo.findGoods();
- if(goodsResult) {
-   result.code = 200;
-   result.data = {
-     goodsList:goodsResult
-   }
- }
- ctx.body = result;
+})
+/*
+* 读取小类别*/
+router.get('/getCategorySubList',async(ctx) => {
+  try {
+    let categoryId = 1;
+    let Category = mongoose.model('CategorySub');
+    let result = await Category.find({MALL_CATEGORY_ID:categoryId}).exec();
+    ctx.body = {code: 200,message: result}
+  }catch (err) {
+    ctx.body ={code: 500, message: err}
+  }
+})
+
+/*
+* 读取商品列表*/
+router.get('/getGoodsListByCategorySubID',async(ctx) => {
+  try {
+    let categorySubId = '2c9f6c946016ea9b016016f79c8e0000';
+    let Goods= mongoose.model('Goods');
+    let result = await Goods.find({SUB_ID:categorySubId}).exec();
+    ctx.body = {code: 200,message: result}
+  }catch (err) {
+    ctx.body ={code: 500, message: err}
+  }
 })
 module.exports = router;

@@ -11,7 +11,7 @@
       <img :src="goodsInfo.IMAGE1" width="100%"/>
     </div>
     <div class="goods-name">{{goodsInfo.NAME}}</div>
-    <div class="goods-price">价格：{{goodsInfo.PRESENT_PRICE}}</div>
+    <div class="goods-price">价格：<span class="price">￥{{goodsInfo.PRESENT_PRICE | moneyFilter}}</span></div>
     <div>
       <van-tabs >
         <van-tab title="商品详情">
@@ -25,13 +25,35 @@
       </van-tabs>
 
     </div>
+    <!--<div class="goods-bottom">-->
+
+      <!--<div>-->
+        <!--<van-button size="large" type="primary">加入购物车</van-button>-->
+      <!--</div>-->
+      <!--<div>-->
+        <!--<van-button size="large" type="danger">直接购买</van-button>-->
+      <!--</div>-->
+
+    <!--</div>-->
+    <van-goods-action>
+      <van-goods-action-mini-btn icon="chat" text="客服" @click="onClickMiniBtn" />
+      <van-goods-action-mini-btn icon="cart" text="购物车" @click="onClickMiniBtn" />
+      <van-goods-action-big-btn text="加入购物车" @click="onClickBigBtn" />
+      <van-goods-action-big-btn text="立即购买" @click="onClickBigBtn" primary />
+    </van-goods-action>
   </div>
 </template>
 
 <script>
+  import {toMoney} from '@/filter/moneyFilter.js'
   import url from '@/serviceAPI.config.js'
   export default {
     name: "goods",
+    filters: {
+      moneyFilter (money) {
+        return toMoney(money);
+      }
+    },
     data() {
       return {
         goodsId: '01e2f8a88fe44bb8aa6e843ae02105a8',
@@ -46,6 +68,12 @@
     methods:{
       goBack() {
         this.$router.go(-1);
+      },
+      onClickMiniBtn() {
+        this.$toast('点击图标');
+      },
+      onClickBigBtn() {
+        this.$toast('点击按钮');
       },
       getInfo() {
         this.$http.post(url.getDetailGoodsInfo,{goodsId: this.goodsId})
@@ -66,16 +94,45 @@
 </script>
 
 <style scoped>
-.content{
-  padding: 46px 0 20px 0;
-}
-.detail{
-  font-size:0px;
-}
+  .content{
+    padding: 46px 0 20px 0;
+  }
+  .detail{
+    font-size:0px;
+  }
+  .goods-name{
+    background-color: #fff;
+  }
+  .goods-price{
+    background-color: #fff;
+  }
+  .goods-bottom{
+    position: fixed;
+    bottom:0px;
+    left:0px;
+    background-color: #FFF;
+    width:100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-flow: nowrap;
+  }
+  .goods-bottom > div{
+     flex:1;
+     padding:5px;
+   }
 .goods-name{
-  background-color: #fff;
+  color: #333;
+  padding: 0 20px;
+  font-weight: bold;
 }
-.goods-price{
-  background-color: #fff;
-}
+  .goods-price{
+    color: #333;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+
+  }
+  .goods-price .price{
+    color: #f44;
+  }
 </style>
