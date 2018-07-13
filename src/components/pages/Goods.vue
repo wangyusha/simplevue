@@ -13,7 +13,7 @@
     <div class="goods-name">{{goodsInfo.NAME}}</div>
     <div class="goods-price">价格：<span class="price">￥{{goodsInfo.PRESENT_PRICE | moneyFilter}}</span></div>
     <div>
-      <van-tabs >
+      <van-tabs  swipeable sticky>
         <van-tab title="商品详情">
           <div class="detail" v-html="goodsInfo.DETAIL">
 
