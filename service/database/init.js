@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const glob = require('glob');
 const {resolve} = require('path');
-const db = 'mongodb://140.143.153.98/simple-db';
+const db = 'mongodb://localhost/simple-db';
 mongoose.Promise = global.Promise;
 exports.connect = ()=> {
   mongoose.connect(db);
@@ -12,7 +12,7 @@ exports.connect = ()=> {
       console.log('*******************數據庫斷開*********');
       if(maxConnectionTimes <3) {
         maxConnectionTimes++;
-        //进行连接
+        //进行连接数据
         mongoose.connect(db);
       }else {
         reject();
