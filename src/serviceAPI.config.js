@@ -6,6 +6,9 @@ const URL = {
   registerUser:LOCALURL+'register',   //用户注册接口
   loginUser:LOCALURL + 'login',  //登录接口
   getDetailGoodsInfo: LOCALURL + 'getDetailGoodsInfo', //商品详情接口
+  getCategoryList: LOCALURL + 'getCategoryList', //读取大类别,
+  getCategorySubList: LOCALURL + 'getCategorySubList', //子类别,
+  getGoodsListByCategorySubID: LOCALURL + 'getGoodsListByCategorySubID', //小类别商品信息
 }
 
 export default URL;

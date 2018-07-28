@@ -6,7 +6,7 @@ router.get('/',async(ctx) =>{
 });
 
 router.post('/register',async(ctx)=>{
-  let params= ctx.request.body
+  let params= ctx.request.body;
   // await connect();
   // initSchemas();
   const User = mongoose.model('User');
