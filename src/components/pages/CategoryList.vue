@@ -29,11 +29,11 @@
                   :finished="finished"
                   @load="onLoad"
                 >
-                  <div class="list-item" v-for="(item,index) in goodList" :key="index">
+                  <div class="list-item" @click="goGoodInfo(item.ID)" v-for="(item,index) in goodList" :key="index">
                     <div class="list-item-img"><img v-lazy="item.IMAGE1" width="100%"/></div>
                     <div class="list-item-text">
                       <div>{{item.NAME}}</div>
-                      <div class="">￥{{item.ORI_PRICE}}</div>
+                      <div class="">￥{{item.ORI_PRICE | moneyFilter}}</div>
                     </div>
                   </div>
                 </van-list>
@@ -46,9 +46,15 @@
 </template>
 
 <script>
-    import url from '../../serviceAPI.config'
+    import url from '../../serviceAPI.config';
+    import {toMoney} from '@/filter/moneyFilter.js';
     export default {
         name: "CategoryList",
+        filters: {
+          moneyFilter(money) {
+            return toMoney(money)
+          }
+        },
         data() {
           return {
             category: [],
@@ -154,6 +160,10 @@
             this.finished = false
             this.page=1
             this.onLoad()
+          },
+          goGoodInfo(id) {
+            // console.log(id)
+            this.$router.push({name:'Goods',params:{goodsId: id}})
           }
         }
     }
