@@ -38,7 +38,7 @@
     <van-goods-action>
       <van-goods-action-mini-btn icon="chat" text="客服" @click="onClickMiniBtn" />
       <van-goods-action-mini-btn icon="cart" text="购物车" @click="onClickMiniBtn" />
-      <van-goods-action-big-btn text="加入购物车" @click="onClickBigBtn" />
+      <van-goods-action-big-btn text="加入购物车" @click="addGooodsToCart" />
       <van-goods-action-big-btn text="立即购买" @click="onClickBigBtn" primary />
     </van-goods-action>
   </div>
@@ -88,7 +88,30 @@
           .catch(error=>{
             console.log(error)
           })
+      },
+      addGooodsToCart() {
+        //取出商品购物车的商品
+        let cartInfo = localStorage.cartInfo? JSON.parse(localStorage.cartInfo):[];
+        let isHaveGoods = cartInfo.find(cart => cart.goodsId == this.goodsId);
+        if(!isHaveGoods) {
+          //没有商品直接添加到数组中
+          //重新组成添加到购物车的信息
+          let newGoodsInfo={
+            goodsId:this.goodsInfo.ID,
+            Name:this.goodsInfo.Name,
+            price:this.goodsInfo.PRESENT_PRICE,
+            image:this.goodsInfo.IMAGE1,
+            count:1
+          }
+          cartInfo.push(newGoodsInfo);
+          localStorage.cartInfo = JSON.stringify(cartInfo);
+          this.$toast.success('添加成功')
+        }else  {
+          this.$toast.success('商品已存在')
+        }
+        this.$router.push({name:'Cart'})  //进行跳转
       }
+
     }
   }
 </script>
