@@ -1,14 +1,34 @@
 <template>
     <div>
       <div class="navbar-div">
-        <van-nav-bar   title="购物车" />
+        <van-nav-bar fixed left-text="返回"  @click-left="goBack" left-arrow  title="购物车" />
+      </div>
+      <!--显示购物车中的商品-->
+      <div class="cart-list">
+        <div class="pang-row" v-for="(item,index) in cartInfo" :key="index">
+          <div class="pang-img"><img :src="item.image" width="100%" /></div>
+          <div class="pang-text">
+            <div class="pang-goods-name">{{item.Name}}</div>
+
+            <div class="pang-control">
+              <van-stepper v-model="item.count" />
+            </div>
+          </div>
+          <div class="pang-goods-price">￥{{item.price * item.count | moneyFilter}}</div>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
+  import {toMoney} from '@/filter/moneyFilter.js'
     export default {
         name: "Cart",
+        filters: {
+          moneyFilter (money) {
+            return toMoney(money);
+          }
+        },
         data() {
           return {
             cartInfo: [],
@@ -19,6 +39,9 @@
             this.getCartInfo();
         },
         methods: {
+          goBack() {
+            this.$router.go(-1);
+          },
           //购物车信息
            getCartInfo() {
              if(localStorage.cartInfo) {
@@ -33,5 +56,31 @@
 </script>
 
 <style scoped>
+  .cart-list{
+    background-color: #fff;
+  }
+  .pang-row{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0.5rem;
+    font-size:0.85rem;
+    border-bottom:1px solid #E4E7ED;
+  }
+  .pang-img{
+    flex:6;
+  }
+  .pang-text{
+    flex:14;
+    padding-left:10px;
+  }
+  .pang-control{
+    padding-top: 10px;
+  }
+  .pang-goods-price{
+    flex:4;
+    text-align: right;
+  }
 
 </style>

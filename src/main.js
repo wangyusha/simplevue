@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload,List,NavBar,Field,Toast,Tab, Tabs, GoodsAction,
   GoodsActionBigBtn,
-  GoodsActionMiniBtn,PullRefresh} from 'vant';
+  GoodsActionMiniBtn,PullRefresh,Stepper} from 'vant';
 import './uitil/rem.js';
 import axios from 'axios';
 
@@ -14,7 +14,8 @@ Vue.use(Button).use(Row).use(Col).use(Icon)
   .use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(GoodsAction)
   .use(GoodsActionBigBtn)
   .use(GoodsActionMiniBtn)
-  .use(PullRefresh);
+  .use(PullRefresh)
+  .use(Stepper);
 
 Vue.config.productionTip = false;
 

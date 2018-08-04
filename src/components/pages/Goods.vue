@@ -62,7 +62,7 @@
     },
     created(){
       this.goodsId = this.$route.query.goodsId ? this.$route.query.goodsId : this.$route.params.goodsId;
-      console.log(this.goodsId)
+      // console.log(this.goodsId)
       this.getInfo()
     },
     methods:{
@@ -98,16 +98,17 @@
           //重新组成添加到购物车的信息
           let newGoodsInfo={
             goodsId:this.goodsInfo.ID,
-            Name:this.goodsInfo.Name,
+            Name:this.goodsInfo.NAME,
             price:this.goodsInfo.PRESENT_PRICE,
             image:this.goodsInfo.IMAGE1,
             count:1
           }
-          cartInfo.push(newGoodsInfo);
+          cartInfo = [newGoodsInfo,...cartInfo];
           localStorage.cartInfo = JSON.stringify(cartInfo);
           this.$toast.success('添加成功')
         }else  {
-          this.$toast.success('商品已存在')
+          this.$toast.success('商品已存在');
+          return;
         }
         this.$router.push({name:'Cart'})  //进行跳转
       }
