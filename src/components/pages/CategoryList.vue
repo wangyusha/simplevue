@@ -171,7 +171,8 @@
 
 <style scoped>
   #leftNav{
-    background-color: aliceblue;
+    background-color: #e5017d;
+    color: #fff;
   }
   #leftNav ul li {
     line-height: 2rem;
@@ -182,6 +183,7 @@
   }
   .categoryActive{
     background-color: #fff;
+    color: #e5017d;
   }
   .list-item{
     display: flex;

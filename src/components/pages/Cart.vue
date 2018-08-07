@@ -47,7 +47,7 @@
              if(localStorage.cartInfo) {
                this.cartInfo = JSON.parse(localStorage.cartInfo)
              }
-             console.log(`cartInfo:${JSON.stringify(this.cartInfo)}`);
+             // console.log(`cartInfo:${JSON.stringify(this.cartInfo)}`);
              this.isEmpty = this.cartInfo.length > 0 ? true:false;
            }
         }
