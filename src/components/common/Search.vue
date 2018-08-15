@@ -1,37 +1,75 @@
 <template>
-    <div> <!--search bar layout-->
-        <div class="search-bar">
-            <van-row gutter="5">
-                <van-col span="3"><van-icon name="location" class="location-icon" /></van-col>
-                <van-col span="16">
-                    <input type="text" class="search-input" />
-                </van-col>
-                <van-col span="5">
-                    <van-button size="mini">查找</van-button>
-                </van-col>
+  <div> <!--search bar layout-->
+    <div class="search-bar">
+      <van-row gutter="5">
+        <van-col span="3" ><van-icon name="location" class="location-icon"  @click="getLocation"/></van-col>
+        <van-col span="16">
+          <input type="text" class="search-input" />
+        </van-col>
+        <van-col span="5">
+          <van-button size="mini">查找</van-button>
+        </van-col>
 
-            </van-row>
-        </div>
+      </van-row>
     </div>
+  </div>
 </template>
- 
+
 <script>
-export default {
+  export default {
     data() {
-        return {
-            locationIcon: require("../../assets/logo.png")
-        };
+      return {
+        locationIcon: require("../../assets/logo.png")
+      };
+    },
+    methods: {
+      getLocation() {
+        if (navigator.geolocation){
+          console.log('111')
+          navigator.geolocation.getCurrentPosition(this.successfulCallback,this.failCallback);
+        }else{
+          alert("浏览器不支持地理定位。");
+        }
+      },
+      successfulCallback(position) {
+        console.log('222222')
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        alert(latitude)
+      },
+      failCallback(error) {
+        var text ;
+        switch(error.code){
+          case error.PERMISSION_DENIED:
+            text ="用户拒绝对获取地理位置的请求。";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            text ="位置信息是不可用的。";
+            break;
+          case error.TIMEOUT:
+            text ="请求用户地理位置超时。";
+            break;
+          case error.UNKNOWN_ERROR:
+            text ="未知错误。";
+            break;
+        }
+      }
     }
-};
+  };
 </script>
- 
+
 <style scoped>
-.search-bar {
+  .search-bar {
     height: 2.2rem;
+    width: 100%;
     background-color: #e5017d;
     line-height: 2.2rem;
-}
-.search-input {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+  }
+  .search-input {
     width: 100%;
     height: 1.3rem;
     border-top: 0px;
@@ -40,11 +78,10 @@ export default {
     border-bottom: 1px solid 1px !important;
     background-color: #e5017d;
     color: #fff;
-}
-.location-icon {
+  }
+  .location-icon {
     padding-top: 0.7rem;
     padding-left: 1.1rem;
     color: #fff;
-}
+  }
 </style>
- 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-shop">
     <!--搜索-->
     <v-search></v-search>
     <!--轮播-->
@@ -112,7 +112,7 @@
           this.floorName = data.floorName;
         //  热卖商品
           this.hotGoods = data.hotGoods;
-          console.log(data.hotGoods)
+          // console.log(data.hotGoods)
         })
         .catch(err => {
         });
@@ -121,6 +121,9 @@
 </script>
 
 <style scoped>
+  .home-shop{
+    padding: 2.2rem 0 50px 0;
+  }
   .swiper-area {
     width: 20rem;
     clear: both;

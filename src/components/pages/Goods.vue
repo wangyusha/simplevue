@@ -37,7 +37,7 @@
     <!--</div>-->
     <van-goods-action>
       <van-goods-action-mini-btn icon="chat" text="客服" @click="onClickMiniBtn" />
-      <van-goods-action-mini-btn icon="cart" text="购物车" @click="onClickMiniBtn" />
+      <van-goods-action-mini-btn icon="cart" text="购物车" @click="goCart" :info=" cartCount" />
       <van-goods-action-big-btn text="加入购物车" @click="addGooodsToCart" />
       <van-goods-action-big-btn text="立即购买" @click="onClickBigBtn" primary />
     </van-goods-action>
@@ -57,27 +57,31 @@
     data() {
       return {
         goodsId: '01e2f8a88fe44bb8aa6e843ae02105a8',
-        goodsInfo: {}
+        goodsInfo: {},
+        cartCount: 0,
       }
     },
     created(){
       this.goodsId = this.$route.query.goodsId ? this.$route.query.goodsId : this.$route.params.goodsId;
-      // console.log(this.goodsId)
-      this.getInfo()
+      this.getInfo();
+      this.cartCount = localStorage.cartInfo ? JSON.parse(localStorage.cartInfo).length : 0;
     },
     methods:{
       goBack() {
         this.$router.go(-1);
       },
       onClickMiniBtn() {
-        this.$toast('点击图标');
+
+        // this.$http.post(url.userAppraise,)
       },
       onClickBigBtn() {
         this.$toast('点击按钮');
       },
       getInfo() {
+        // console.log(this.goodsId)
         this.$http.post(url.getDetailGoodsInfo,{goodsId: this.goodsId})
           .then(response=>{
+            // console.log(response)
             if(response.data.code==200 && response.data.message) {
               this.goodsInfo = response.data.message
             }else{
@@ -105,12 +109,16 @@
           }
           cartInfo = [newGoodsInfo,...cartInfo];
           localStorage.cartInfo = JSON.stringify(cartInfo);
-          this.$toast.success('添加成功')
+          this.$toast.success('添加成功');
+          this.cartCount += 1;
         }else  {
           this.$toast.success('商品已存在');
           return;
         }
-        this.$router.push({name:'Cart'})  //进行跳转
+        // this.$router.push({name:'Cart'})  //进行跳转
+      },
+      goCart() {
+        this.$router.push({name:'Cart'})
       }
 
     }
@@ -119,7 +127,7 @@
 
 <style scoped>
   .content{
-    padding: 46px 0 20px 0;
+    padding: 46px 0 60px 0;
   }
   .detail{
     font-size:0px;

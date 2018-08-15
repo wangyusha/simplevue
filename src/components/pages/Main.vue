@@ -3,10 +3,10 @@
       <div class="main-box">
         <router-view/>
       </div>
-      <van-tabbar v-model="active" :style="{zIndex:999}" :fixed="true">
-        <van-tabbar-item icon="shop" to="/">首页</van-tabbar-item>
-        <van-tabbar-item icon="records" to="/CategoryList">列表页</van-tabbar-item>
-        <van-tabbar-item icon="cart" to="/Cart">购物车</van-tabbar-item>
+      <van-tabbar v-model="active" :style="{zIndex:999}" :fixed="true" v-if="isShow">
+        <van-tabbar-item icon="shop" to="/main">首页</van-tabbar-item>
+        <van-tabbar-item icon="records" to="/main/CategoryList">列表页</van-tabbar-item>
+        <van-tabbar-item icon="cart" to="/main/Cart">购物车</van-tabbar-item>
         <van-tabbar-item icon="contact" info="20">会员中心</van-tabbar-item>
       </van-tabbar>
     </div>
@@ -18,6 +18,7 @@
         data() {
           return {
             active: 0,
+            isShow: true,
           }
         },
       methods: {
@@ -31,6 +32,32 @@
                 break;
               case 2 :
                 this.$router.push({name: 'Cart'});
+                break;
+              case 3 :
+                break;
+            }
+          }
+      },
+      watch: {
+          $route(to,from) {
+            console.log(to,from)
+            // if(to.name == 'Cart') {
+            //   this.isShow = false;
+            // }else {
+            //   this.isShow = true;
+            // }
+            switch (to.name) {
+              case 'ShoppingMall' :
+                this.active = 0;
+                this.isShow = true;
+                break;
+              case 'CategoryList' :
+                this.active = 1;
+                this.isShow = true;
+                break;
+              case 'Cart' :
+                this.active = 2;
+                this.isShow = false;
                 break;
               case 3 :
                 break;

@@ -4,7 +4,8 @@ const app = new Koa();
 const Router = require('koa-router')
 const bodyParse = require('koa-bodyparser');
 const cros = require('koa2-cors');
-const onerror = require('koa-onerror')
+const onerror = require('koa-onerror');
+const static = require('koa-static');
 const {connect,initSchemas} = require('./database/init.js');
 const user = require('./appApi/User.js');
 const goods = require('./appApi/goods.js');
@@ -25,6 +26,9 @@ app.use(bodyParse({
   enableTypes:['json', 'form', 'text']
 }));
 app.use(cros());
+//静态文件
+// console.log(__dirname)
+app.use(static(__dirname,'/static'));
 
 app.use(async (ctx, next) => {
   const start = new Date()

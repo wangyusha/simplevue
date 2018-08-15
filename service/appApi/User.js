@@ -29,7 +29,7 @@ router.post('/register',async(ctx)=>{
  */
 router.post('/login',async(ctx) => {
   let {userName,password} = ctx.request.body;
-  console.log(userName,password)
+  // console.log(userName,password)
   const User = mongoose.model('User');
   await User.find({userName:userName}).exec().then(async(result)=>{
     let [checkResult] = result;
@@ -41,7 +41,12 @@ router.post('/login',async(ctx) => {
           if(isMatch) {
             ctx.body = {
               code:200,
-              message:isMatch
+              message:isMatch,
+              data: {
+                userId: checkResult._id,
+                photoUrl: checkResult.photoUrl,
+                userName:checkResult.userName
+              }
             }
           }else  {
             ctx.body={ code:202, message:'用户名或密码不存在'}
@@ -64,5 +69,49 @@ router.post('/login',async(ctx) => {
       message:err
     }
   })
+})
+//用户评论
+router.post('/userAppraise',async(ctx) => {
+  let params = ctx.request.body;
+  // console.log(params)
+  let Appraise = mongoose.model('Appraise');
+  let newAppraise = new Appraise(params);
+  await newAppraise.save().then(() => {
+    ctx.body ={
+      code: 200,
+      message: '评论成功'
+    }
+  }).catch(err => {
+    ctx.body ={
+      code: 500,
+      message: err
+    }
+  })
+})
+/**
+ * 查询评论列表
+ */
+router.post('/getAppraise',async (ctx) => {
+  let params = ctx.request.body;
+  console.log(params)
+  let Appraise = mongoose.model('Appraise');
+  let User= mongoose.model('User');
+  console.log(User)
+  let result = await Appraise.aggregate([
+    {
+      $lookup:
+        {
+          from: 'user',
+          localField: "userId",
+          foreignField: "_id",
+          as: "User_docs"
+        }
+    },
+    { $match : { goodsId : params.goodsId} }
+  ]);
+  ctx.body = {
+    code:200,
+    message: result
+  }
 })
 module.exports=router;

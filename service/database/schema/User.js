@@ -8,6 +8,7 @@ const userSchema = new Schema({
   userId: ObjectId,
   userName: {unique: true,type: String},
   password: String,
+  photoUrl:{type: String,default:'http://localhost:3000/static/img/default.jpg'},
   createAt: {type: Date,default: Date.now()},
   lastLogin: {type: Date,default: Date.now()}
 },{
@@ -17,7 +18,7 @@ const userSchema = new Schema({
 //每次存储数据时都要执行
 userSchema.pre('save', function(next){
   //let user = this
-  console.log(this)
+  // console.log(this)
   // if (!this.isModified('password')) return next();
   bcrypt.genSalt( SALT_WORK_FACTOR,(err,salt)=>{
     if(err) return next(err)

@@ -163,7 +163,7 @@
           },
           goGoodInfo(id) {
             // console.log(id)
-            this.$router.push({name:'Goods',params:{goodsId: id}})
+            this.$router.push({name:'Goods',query:{goodsId: id}})
           }
         }
     }

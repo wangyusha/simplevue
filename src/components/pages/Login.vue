@@ -70,7 +70,7 @@
               .then(response => {
                   if(response.data.code==200 && response.data.message){
                     new Promise((resolve,reject)=>{
-                      localStorage.userInfo= {userName:this.username}
+                      localStorage.userInfo= JSON.stringify(response.data.data)
                       setTimeout(()=>{resolve()},500)
                     }).then(()=>{
                       this.$toast.success('登录成功')
