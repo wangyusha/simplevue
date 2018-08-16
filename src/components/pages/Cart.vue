@@ -28,6 +28,11 @@
       <!--<img :src="item.image" width="100%" /> {{ item.price }}-->
       <!--</van-checkbox>-->
       <!--</van-checkbox-group>-->
+      <div class="cart-empty" v-if="cartInfo.length == 0">
+        <van-icon name="shopping-cart" color="#ff5d38" size=""/>
+        <span class="empty-title">购物车空空如也！</span>
+        <router-link class="goBrowse" to="/main/CategoryList">去逛逛</router-link>
+      </div>
     </div>
     <div class="buy-bar">
       <div class="bar-item bar-item-left"><van-checkbox v-model="isAllSelect"  @change="allChange">全选</van-checkbox></div>
@@ -214,5 +219,19 @@
   .bar-item-right{
     text-align: right;
     padding-right: 20px;
+  }
+  .cart-empty{
+    text-align: center;
+    padding-top: 10rem;
+    color:  #ff5d38;
+    font-size: 22px;
+  }
+  .cart-empty .goBrowse{
+    color: #ff5d38;
+    font-size: 16px;
+  }
+  .empty-title{
+    font-size: 16px;
+    color: #797979;
   }
 </style>

@@ -13,14 +13,20 @@
     <div class="goods-name">{{goodsInfo.NAME}}</div>
     <div class="goods-price">价格：<span class="price">￥{{goodsInfo.PRESENT_PRICE | moneyFilter}}</span></div>
     <div>
-      <van-tabs  swipeable sticky>
+      <van-tabs  swipeable sticky @click="tabChange">
         <van-tab title="商品详情">
           <div class="detail" v-html="goodsInfo.DETAIL">
 
           </div>
         </van-tab>
         <van-tab title="评价">
-          正在制作中
+          <van-cell-group>
+            <van-cell v-for="item in appraiseList" :key="item._id">
+              <div class="ptoto-name"><div class="photo"><img v-lazy="item.userId.photoUrl" width="100%" alt=""></div><span>{{item.userId.userName}}</span></div>
+              <div>{{item.content}}</div>
+            </van-cell>
+          </van-cell-group>
+          <div class="appraise-empty" v-if="appraiseList.length == 0">暂无评价！</div>
         </van-tab>
       </van-tabs>
 
@@ -36,11 +42,18 @@
 
     <!--</div>-->
     <van-goods-action>
-      <van-goods-action-mini-btn icon="chat" text="客服" @click="onClickMiniBtn" />
+      <van-goods-action-mini-btn icon="chat" text="客服"  />
       <van-goods-action-mini-btn icon="cart" text="购物车" @click="goCart" :info=" cartCount" />
       <van-goods-action-big-btn text="加入购物车" @click="addGooodsToCart" />
-      <van-goods-action-big-btn text="立即购买" @click="onClickBigBtn" primary />
+      <van-goods-action-big-btn text="立即购买" @click="onGoBuy" primary />
     </van-goods-action>
+    <!--<van-sku v-model="showSku">-->
+      <!--<template slot="sku-header-price" >-->
+        <!--<div class="van-sku__goods-price">-->
+          <!--<span class="van-sku__price-symbol">￥</span><span class="van-sku__price-num">6666</span>-->
+        <!--</div>-->
+      <!--</template>-->
+    <!--</van-sku>-->
   </div>
 </template>
 
@@ -59,6 +72,8 @@
         goodsId: '01e2f8a88fe44bb8aa6e843ae02105a8',
         goodsInfo: {},
         cartCount: 0,
+        appraiseList: [],
+        showSku: false,
       }
     },
     created(){
@@ -70,12 +85,9 @@
       goBack() {
         this.$router.go(-1);
       },
-      onClickMiniBtn() {
-
-        // this.$http.post(url.userAppraise,)
-      },
-      onClickBigBtn() {
-        this.$toast('点击按钮');
+      onGoBuy() {
+        console.log('111')
+        this.showSku = true;
       },
       getInfo() {
         // console.log(this.goodsId)
@@ -83,7 +95,8 @@
           .then(response=>{
             // console.log(response)
             if(response.data.code==200 && response.data.message) {
-              this.goodsInfo = response.data.message
+              this.goodsInfo = response.data.message;
+              console.log(this.goodsInfo);
             }else{
               this.$toast('服务器错了')
             }
@@ -119,6 +132,22 @@
       },
       goCart() {
         this.$router.push({name:'Cart'})
+      },
+      tabChange(index,title) {
+        // console.log(index,title)
+        if(index === 1) {
+          this.$http.post(url.getAppraise,{goodsId: this.goodsId})
+            .then( res => {
+              if(res.data.code ==200) {
+                // console.log(res.data.data);
+                this.appraiseList = res.data.data;
+              }else{
+                this.$toast.fail('服务器错误！')
+              }
+            }).catch( err => {
+              console.log(err)
+          })
+        }
       }
 
     }
@@ -166,5 +195,18 @@
   }
   .goods-price .price{
     color: #f44;
+  }
+  .appraise-empty{
+    text-align: center;
+    padding: 8rem 0;
+    color: #797979;
+  }
+  .ptoto-name .photo{
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: 1rem;
   }
 </style>

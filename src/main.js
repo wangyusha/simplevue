@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload,List,NavBar,
   Field,Toast,Tab, Tabs, GoodsAction, GoodsActionBigBtn, GoodsActionMiniBtn,
-  PullRefresh,Stepper,Tabbar, TabbarItem,Checkbox, CheckboxGroup, Dialog} from 'vant';
+  PullRefresh,Stepper,Tabbar, TabbarItem,Checkbox, CheckboxGroup, Dialog,
+  Cell, CellGroup,Sku,Search } from 'vant';
 import './uitil/rem.js';
 import axios from 'axios';
 
@@ -13,7 +14,8 @@ Vue.use(Button).use(Row).use(Col).use(Icon)
   .use(Swipe).use(SwipeItem).use(Lazyload, {loading:'',error:'',preload:''})
   .use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(GoodsAction)
   .use(GoodsActionBigBtn).use(GoodsActionMiniBtn).use(PullRefresh).use(Stepper)
-  .use(Tabbar).use(TabbarItem).use(Checkbox).use(CheckboxGroup).use(Dialog);
+  .use(Tabbar).use(TabbarItem).use(Checkbox).use(CheckboxGroup).use(Dialog)
+  .use(Cell).use(CellGroup).use(Sku).use(Search );
 
 Vue.config.productionTip = false;
 

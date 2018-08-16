@@ -75,6 +75,7 @@ router.post('/userAppraise',async(ctx) => {
   let params = ctx.request.body;
   // console.log(params)
   let Appraise = mongoose.model('Appraise');
+  // console.log(Appraise.getIndexes())
   let newAppraise = new Appraise(params);
   await newAppraise.save().then(() => {
     ctx.body ={
@@ -93,25 +94,20 @@ router.post('/userAppraise',async(ctx) => {
  */
 router.post('/getAppraise',async (ctx) => {
   let params = ctx.request.body;
-  console.log(params)
   let Appraise = mongoose.model('Appraise');
   let User= mongoose.model('User');
-  console.log(User)
-  let result = await Appraise.aggregate([
-    {
-      $lookup:
-        {
-          from: 'user',
-          localField: "userId",
-          foreignField: "_id",
-          as: "User_docs"
-        }
-    },
-    { $match : { goodsId : params.goodsId} }
-  ]);
-  ctx.body = {
-    code:200,
-    message: result
+  try {
+    let result = await Appraise.find({goodsId: params.goodsId}).populate({path:'userId',select:'userName photoUrl',model: User}).exec();
+    ctx.body = {
+      code:200,
+      data: result
+    }
+  }catch (err) {
+    ctx.body = {
+      code:200,
+      message: err
+    }
   }
+
 })
 module.exports=router;

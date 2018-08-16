@@ -126,4 +126,20 @@ router.post('/getGoodsListByCategorySubID',async(ctx) => {
     ctx.body ={code: 500, message: err}
   }
 })
+/*
+* 关键字查询*/
+router.post('/keywordSearch',async(ctx) => {
+  console.log(ctx.request.body)
+  try {
+    let keyword = ctx.request.body.keyword;
+    let page = ctx.request.body.page || 1;
+    let num = ctx.request.body.num || 10;
+    let start = (page-1) * num;
+    let Goods= mongoose.model('Goods');
+    let result = await Goods.find({NAME:{$regex:keyword}}).skip(start).limit(num).exec();
+    ctx.body = {code: 200,message: result}
+  }catch (err) {
+    ctx.body ={code: 500, message: err}
+  }
+})
 module.exports = router;

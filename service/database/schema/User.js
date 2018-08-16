@@ -12,7 +12,7 @@ const userSchema = new Schema({
   createAt: {type: Date,default: Date.now()},
   lastLogin: {type: Date,default: Date.now()}
 },{
-  collection: 'user'
+  collection: 'User'
 });
 
 //每次存储数据时都要执行

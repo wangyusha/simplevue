@@ -7,7 +7,7 @@ import Goods from '@/components/pages/Goods';
 import CategoryList from '@/components/pages/CategoryList';
 import Cart from '@/components/pages/Cart';
 import Main from '@/components/pages/Main';
-
+import Search from '@/components/pages/Search';
 Vue.use(Router)
 
 export default new Router({
@@ -41,6 +41,10 @@ export default new Router({
       path: '/goods',
       name: 'Goods',
       component: Goods
+    },{
+      path: '/search',
+      name: 'Search',
+      component: Search
     }
   ]
 })

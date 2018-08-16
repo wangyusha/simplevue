@@ -4,10 +4,10 @@
       <van-row gutter="5">
         <van-col span="3" ><van-icon name="location" class="location-icon"  @click="getLocation"/></van-col>
         <van-col span="16">
-          <input type="text" class="search-input" />
+          <input type="text" class="search-input" maxlength="20"  v-model="keyword" />
         </van-col>
         <van-col span="5">
-          <van-button size="mini">查找</van-button>
+          <van-button size="mini"  @click="goSearch">查找</van-button>
         </van-col>
 
       </van-row>
@@ -19,7 +19,8 @@
   export default {
     data() {
       return {
-        locationIcon: require("../../assets/logo.png")
+        locationIcon: require("../../assets/logo.png"),
+        keyword:''
       };
     },
     methods: {
@@ -32,7 +33,7 @@
         }
       },
       successfulCallback(position) {
-        console.log('222222')
+        // console.log('222222')
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
         alert(latitude)
@@ -53,6 +54,13 @@
             text ="未知错误。";
             break;
         }
+      },
+      goSearch() {
+        // console.log(this.keyword)
+        if(this.keyword != '') {
+          this.$router.push({name:'Search',params:{keyword: this.keyword}})
+        }
+
       }
     }
   };
@@ -75,7 +83,7 @@
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
-    border-bottom: 1px solid 1px !important;
+    border-bottom: 1px solid #fff !important;
     background-color: #e5017d;
     color: #fff;
   }

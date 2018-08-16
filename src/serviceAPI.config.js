@@ -10,6 +10,9 @@ const URL = {
   getCategorySubList: LOCALURL + 'getCategorySubList', //子类别,
   getGoodsListByCategorySubID: LOCALURL + 'getGoodsListByCategorySubID', //小类别商品信息
   userAppraise: LOCALURL +'userAppraise', //评论商品
+  getAppraise: LOCALURL +'getAppraise', //评论列表
+  keywordSearch: LOCALURL +'keywordSearch', //搜索数据
+
 }
 
 export default URL;
