@@ -3,19 +3,21 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Navigation from 'vue-navigation'
 import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload,List,NavBar,
   Field,Toast,Tab, Tabs, GoodsAction, GoodsActionBigBtn, GoodsActionMiniBtn,
-  PullRefresh,Stepper,Tabbar, TabbarItem,Checkbox, CheckboxGroup, Dialog,
-  Cell, CellGroup,Sku,Search } from 'vant';
+  PullRefresh,Stepper,Tabbar,AddressEdit, TabbarItem,Checkbox, CheckboxGroup, Dialog,
+  Cell, CellGroup,Sku,Search,Tag,ImagePreview} from 'vant';
 import './uitil/rem.js';
 import axios from 'axios';
 
-Vue.use(Button).use(Row).use(Col).use(Icon)
+Vue.use(Button).use(Row).use(Col).use(Icon).use(AddressEdit)
   .use(Swipe).use(SwipeItem).use(Lazyload, {loading:'',error:'',preload:''})
   .use(List).use(NavBar).use(Field).use(Toast).use(Tab).use(Tabs).use(GoodsAction)
   .use(GoodsActionBigBtn).use(GoodsActionMiniBtn).use(PullRefresh).use(Stepper)
   .use(Tabbar).use(TabbarItem).use(Checkbox).use(CheckboxGroup).use(Dialog)
-  .use(Cell).use(CellGroup).use(Sku).use(Search );
+  .use(Cell).use(CellGroup).use(Sku).use(Search).use(Tag).use(ImagePreview);
+Vue.use(Navigation, {router});
 
 Vue.config.productionTip = false;
 

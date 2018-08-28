@@ -1,5 +1,5 @@
 const BASEURL = "https://www.easy-mock.com/mock/5ae2eeb23fbbf24d8cd7f0b6/SmileVue/";
-const LOCALURL = "http://localhost:3000/";
+const LOCALURL =  "http://192.168.1.3:3000/";
 const URL = {
   getShoppingMallInfo:BASEURL+'index',
   getGoodsInfo:BASEURL+'getGoodsInfo',
@@ -12,6 +12,9 @@ const URL = {
   userAppraise: LOCALURL +'userAppraise', //评论商品
   getAppraise: LOCALURL +'getAppraise', //评论列表
   keywordSearch: LOCALURL +'keywordSearch', //搜索数据
+  getCity: LOCALURL + 'getCity', //获取省市区
+  editorAddress: LOCALURL + 'editorAddress', //添加或编辑地址
+  getAddressList: LOCALURL + 'getAddressList', //获取地址列表
 
 }
 

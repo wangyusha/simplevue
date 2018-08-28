@@ -44,6 +44,7 @@
 
 <script>
   import {toMoney} from '@/filter/moneyFilter.js'
+  import { Toast } from 'vant';
   export default {
     name: "Cart",
     filters: {
@@ -138,13 +139,14 @@
       },
       //结算和删除
       delAndSet() {
-        if(this.toggleTitle == '删除') {
-          this.$dialog.confirm({
-            title: '提示',
-            message: '确认要删除吗？',
-            showCancelButton: true,
-          }).then(() => {
-            if(this.result.length !=0 ) {
+        // console.log(this.result)
+        if(this.result.length != 0 ){
+          if(this.toggleTitle == '删除') {
+            this.$dialog.confirm({
+              title: '提示',
+              message: '确认要删除吗？',
+              showCancelButton: true,
+            }).then(() => {
               // console.log('1111')
               let a = this.cartInfo.filter(v => {
                 // console.log(!this.result.includes(v.goodsId))
@@ -152,13 +154,21 @@
               })
               this.cartInfo = a;
               localStorage.cartInfo = JSON.stringify(a);
-            }else {
-              this.$toast('请选择')
-            }
-          }).catch(() => {
-            console.log('222')
-          })
+              this.result = []
+            }).catch(() => {
+              console.log('222')
+            })
+          }else {
+            let selectCart = this.cartInfo.filter(v => {
+              return this.result.includes(v.goodsId)
+            })
+            localStorage.settlementGoods = JSON.stringify(selectCart);
+            this.$router.push('/Settlement')
+          }
+        }else {
+          Toast('请选择')
         }
+
       }
     }
 
@@ -167,7 +177,7 @@
 
 <style scoped>
   .cart{
-    padding: 46px 0 50px 0;
+    padding: 42px 0 50px 0;
   }
   .cart-list{
     background-color: #fff;

@@ -110,4 +110,66 @@ router.post('/getAppraise',async (ctx) => {
   }
 
 })
+/**
+ * 省市区
+ */
+router.get('/getCity',async (ctx) =>{
+  try {
+    let City = mongoose.model('City');
+    let [result]= await City.find({}).exec();
+    // console.log(result)
+    ctx.body = {
+      code:200,
+      message: result
+    }
+  }catch (err) {
+    ctx.body = {
+      code:500,
+      message: err
+    }
+  }
+})
+/**
+ *添加和编辑地址
+ * state:0,添加 1，编辑
+ */
+router.post('/editorAddress',async (ctx) => {
+  let {state,userId,addressInfo} = ctx.request.body;
+  let obj = {userId,...addressInfo}
+  let Address = mongoose.model('Address')
+  if(state === 0){
+    let newAddress = new Address(obj)
+    await newAddress.save().then(() => {
+      ctx.body ={
+        code:200,
+        message:'添加地址成功'
+      }
+    }).catch( err => {
+      ctx.body ={
+        code:500,
+        message:err
+      }
+    })
+  }
+})
+/**
+ * 地址列表
+ */
+router.post('/getAddressList',async (ctx) => {
+  try {
+    let userId = ctx.request.body.userId;
+    let Address = mongoose.model('Address')
+    let result = await Address.find({userId:userId}).exec();
+    console.log(result)
+    ctx.body = {
+      code: 200,
+      message: result
+    }
+  }catch( err) {
+    ctx.body = {
+      code: 500,
+      message: err
+    }
+  }
+})
 module.exports=router;

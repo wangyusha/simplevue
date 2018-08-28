@@ -6,14 +6,15 @@
       left-arrow
       @click-left="goBack"
       fixed
+     :z-index="99"
     />
     <div class="topimage-div">
-      <img :src="goodsInfo.IMAGE1" width="100%"/>
+      <img :src="goodsInfo.IMAGE1" width="100%" @click="preview" />
     </div>
     <div class="goods-name">{{goodsInfo.NAME}}</div>
     <div class="goods-price">价格：<span class="price">￥{{goodsInfo.PRESENT_PRICE | moneyFilter}}</span></div>
     <div>
-      <van-tabs  swipeable sticky @click="tabChange">
+      <van-tabs  sticky swipeable @click="tabChange">
         <van-tab title="商品详情">
           <div class="detail" v-html="goodsInfo.DETAIL">
 
@@ -41,7 +42,7 @@
       <!--</div>-->
 
     <!--</div>-->
-    <van-goods-action>
+    <van-goods-action :style="{zIndex:100}" >
       <van-goods-action-mini-btn icon="chat" text="客服"  />
       <van-goods-action-mini-btn icon="cart" text="购物车" @click="goCart" :info=" cartCount" />
       <van-goods-action-big-btn text="加入购物车" @click="addGooodsToCart" />
@@ -60,6 +61,7 @@
 <script>
   import {toMoney} from '@/filter/moneyFilter.js'
   import url from '@/serviceAPI.config.js'
+  import { ImagePreview } from 'vant';
   export default {
     name: "goods",
     filters: {
@@ -86,8 +88,18 @@
         this.$router.go(-1);
       },
       onGoBuy() {
-        console.log('111')
+        // console.log('111')
         this.showSku = true;
+      },
+      //图片预览
+      preview(){
+        ImagePreview({
+          images: [this.goodsInfo.IMAGE1],
+          startPosition: 0,
+          onClose() {
+            // do something
+          }
+        });
       },
       getInfo() {
         // console.log(this.goodsId)

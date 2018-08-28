@@ -6,8 +6,12 @@ import Login from '@/components/pages/Login';
 import Goods from '@/components/pages/Goods';
 import CategoryList from '@/components/pages/CategoryList';
 import Cart from '@/components/pages/Cart';
+import Center from '@/components/pages/Center';
 import Main from '@/components/pages/Main';
 import Search from '@/components/pages/Search';
+import Settlement from '@/components/pages/Settlement';
+import AddressEditor from '@/components/pages/AddressEditor';
+
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +31,10 @@ export default new Router({
         path: 'Cart',
         name: 'Cart',
         component: Cart
+      },{
+        path: 'center',
+        name: 'Center',
+        component: Center
       }
     ]},
     {
@@ -45,6 +53,14 @@ export default new Router({
       path: '/search',
       name: 'Search',
       component: Search
+    },{
+      path: '/settlement',
+      name: 'Settlement',
+      component: Settlement
+    },{
+      path: '/addressEditor',
+      name: 'AddressEditor',
+      component: AddressEditor
     }
   ]
 })

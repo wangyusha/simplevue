@@ -78,7 +78,7 @@
           let winHeight = document.documentElement.clientHeight;
           // console.log(winHeight)
           document.getElementById("leftNav").style.height= winHeight-46 +'px';
-          document.getElementById('list-div').style.height=winHeight-90 +'px'
+          document.getElementById('list-div').style.height=winHeight-140 +'px'
         },
         methods: {
           getCategory() {

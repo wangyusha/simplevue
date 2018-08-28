@@ -4,7 +4,9 @@
       <van-row gutter="5">
         <van-col span="3" ><van-icon name="location" class="location-icon"  @click="getLocation"/></van-col>
         <van-col span="16">
-          <input type="text" class="search-input" maxlength="20"  v-model="keyword" />
+          <div @click="goSearch">
+            <input type="text" class="search-input" disabled v-model="keyword" />
+          </div>
         </van-col>
         <van-col span="5">
           <van-button size="mini"  @click="goSearch">查找</van-button>
@@ -57,9 +59,9 @@
       },
       goSearch() {
         // console.log(this.keyword)
-        if(this.keyword != '') {
-          this.$router.push({name:'Search',params:{keyword: this.keyword}})
-        }
+        // if(this.keyword != '') {
+          this.$router.push({name:'Search'})
+        // }
 
       }
     }
