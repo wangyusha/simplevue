@@ -9,7 +9,7 @@
     </div>
     <div class="login">
       <div><van-button type="primary" @click="$router.push('/login')">我要登录</van-button></div>
-      <div><van-button type="primary">我要注册</van-button></div>
+      <div><van-button type="primary" @click="$router.push('/register')">我要注册</van-button></div>
     </div>
     <div>
       <van-cell-group>

@@ -160,7 +160,7 @@ router.post('/getAddressList',async (ctx) => {
     let userId = ctx.request.body.userId;
     let Address = mongoose.model('Address')
     let result = await Address.find({userId:userId}).exec();
-    console.log(result)
+    // console.log(result)
     ctx.body = {
       code: 200,
       message: result
@@ -171,5 +171,29 @@ router.post('/getAddressList',async (ctx) => {
       message: err
     }
   }
+})
+/**
+ * 生成订单
+ */
+router.post('/saveOrder',async(ctx) => {
+  let orderNo = '';
+  for(let i=0;i<6;i++) {
+    orderNo += Math.floor(Math.random()*10)
+  }
+  let orderNum = new Date().getTime() + orderNo;
+  let params = ctx.request.body;
+  let Order = mongoose.model('Order');
+  let newOrder = new Order({orderNum,...params});
+  await newOrder.save().then(() => {
+    ctx.body ={
+      code: 200,
+      message: '提交订单成功'
+    }
+  }).catch(err=> {
+    ctx.body ={
+      code: 500,
+      message: err
+    }
+  })
 })
 module.exports=router;

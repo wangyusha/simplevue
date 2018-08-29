@@ -38,7 +38,7 @@
         // console.log('222222')
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
-        alert(latitude)
+        alert(longitude)
       },
       failCallback(error) {
         var text ;

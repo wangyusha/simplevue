@@ -97,7 +97,7 @@
           images: [this.goodsInfo.IMAGE1],
           startPosition: 0,
           onClose() {
-            // do something
+            //ddd
           }
         });
       },

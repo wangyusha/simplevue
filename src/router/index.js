@@ -56,11 +56,17 @@ export default new Router({
     },{
       path: '/settlement',
       name: 'Settlement',
-      component: Settlement
+      component: Settlement,
+      meta: {
+        verify: true
+      }
     },{
       path: '/addressEditor',
       name: 'AddressEditor',
-      component: AddressEditor
+      component: AddressEditor,
+      meta: {
+        verify: true
+      }
     }
   ]
 })

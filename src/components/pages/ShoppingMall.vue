@@ -141,6 +141,7 @@
 
   .type-bar div {
     padding: 0.3rem;
+    flex: 1;
     font-size: 12px;
     text-align: center;
   }

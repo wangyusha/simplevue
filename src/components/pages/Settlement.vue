@@ -105,7 +105,7 @@
       getAddress(userId) {
         this.$http.post(url.getAddressList,{userId: userId})
           .then( res => {
-            console.log(res)
+            // console.log(res)
             if(res.data.code ===200 && res.data.message.length >0 ){
               if(res.data.message.length == 1) {
                 this.addressInfo = res.data.message[0]
@@ -124,7 +124,18 @@
         })
       },
       submit() {
-
+        if(this.addressInfo.hasOwnProperty('name')) {
+          this.$http.post(url.saveOrder,{
+            userId: this.addressInfo.userId,
+            message: this.message,
+            addressId: this.addressInfo._id,
+            goods: this.goodsInfo
+          }).then( res => {
+            console.log(res)
+          }).catch( err => {
+            console.log(err)
+          })
+        }
       }
     }
   }

@@ -15,6 +15,7 @@ const URL = {
   getCity: LOCALURL + 'getCity', //获取省市区
   editorAddress: LOCALURL + 'editorAddress', //添加或编辑地址
   getAddressList: LOCALURL + 'getAddressList', //获取地址列表
+  saveOrder: LOCALURL + 'saveOrder', //提交订单
 
 }
 
