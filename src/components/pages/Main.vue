@@ -7,11 +7,11 @@
       </navigation>
       </transition>
     </div>
-    <van-tabbar v-model="active" :style="{zIndex:999}" :fixed="true" v-if="isShow" @change="changTabbar">
-      <van-tabbar-item icon="shop" >首页</van-tabbar-item>
-      <van-tabbar-item icon="records" >列表页</van-tabbar-item>
-      <van-tabbar-item icon="cart">购物车</van-tabbar-item>
-      <van-tabbar-item icon="contact">会员中心</van-tabbar-item>
+    <van-tabbar v-model="active" :style="{zIndex:999}" :fixed="true" @change="changTabbar">
+      <van-tabbar-item icon="shop" replace>首页</van-tabbar-item>
+      <van-tabbar-item icon="records" replace>列表页</van-tabbar-item>
+      <van-tabbar-item icon="cart" replace>购物车</van-tabbar-item>
+      <van-tabbar-item icon="contact" replace>会员中心</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -35,6 +35,10 @@
         this.transitionName = 'slide-right'
       })
     },
+    mounted() {
+      // console.log(this.active)
+      // this.changTabbar(this.active)
+    },
     methods: {
       changTabbar(active) {
         switch (active) {
@@ -55,12 +59,6 @@
     },
     watch: {
       $route(to,from) {
-        console.log(to,from)
-        // if(to.name == 'Cart') {
-        //   this.isShow = false;
-        // }else {
-        //   this.isShow = true;
-        // }
         switch (to.name) {
           case 'ShoppingMall' :
             this.active = 0;

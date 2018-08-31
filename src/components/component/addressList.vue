@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="address-list" ref="addressList">
     <van-address-list
       v-model="chosenAddressId"
       :list="list"
       @add="onAdd"
       @edit="onEdit"
+      @select="selected"
     />
   </div>
 </template>
@@ -12,37 +13,38 @@
 <script>
   export default {
     name: "address-list",
+    props:['list'],
+    mounted() {
+      let winHeight = document.documentElement.clientHeight;
+      let winWidth = document.documentElement.clientWidth;
+      let node = this.$refs.addressList;
+      node.style.height = winHeight+'px';
+      node.style.width = winWidth+'px';
+      // console.log(node)
+    },
     data() {
       return {
-        chosenAddressId: '1',
-        list: [
-          {
-            id: '1',
-            name: '张三',
-            tel: '13000000000',
-            address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-          },
-          {
-            id: '2',
-            name: '李四',
-            tel: '1310000000',
-            address: '浙江省杭州市拱墅区莫干山路 50 号'
-          }
-        ]
+        chosenAddressId: this.list[0].id,
       }
     },
 
     methods: {
       onAdd() {
-        Toast('新增地址');
+        this.$router.push({name:'AddressEditor'})
       },
       onEdit(item, index) {
-        Toast('编辑地址:' + index);
+      },
+      selected(item,index){
+        // console.log(item,index)
+        this.$emit('onselect',item)
       }
     }
   }
 </script>
 
 <style scoped>
-
+.address-list{
+  padding-top: 46px;
+  box-sizing: border-box;
+}
 </style>

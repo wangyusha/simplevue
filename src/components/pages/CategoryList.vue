@@ -109,7 +109,7 @@
                 if(res.data.code == 200 && res.data.message ){
                   this.categorySub=res.data.message;
                   this.active = 0;
-                  console.log(this.categorySub)
+                  // console.log(this.categorySub)
                   this.categorySubId = this.categorySub[0].ID;
                   this.getGoodList();
                 }else{

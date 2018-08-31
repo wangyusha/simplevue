@@ -60,7 +60,7 @@
     mounted() {
       let winHeight = document.documentElement.clientHeight;
       let sLIist = this.$refs.sList;
-      console.log(winHeight)
+      // console.log(winHeight)
       sLIist.style.height = winHeight-42 + 'px';
     },
     methods: {

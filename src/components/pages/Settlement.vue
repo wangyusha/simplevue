@@ -5,7 +5,7 @@
     </div>
     <div class="address">
       <van-cell-group>
-        <van-cell title="单元格" is-link center  v-if="addressInfo.name">
+        <van-cell title="单元格" is-link center  @click="showAddressList = true" v-if="addressInfo.name">
           <span slot="icon" class="address-icon"><van-icon name="location" color="#38f"/></span>
           <template slot="title">
             <div><span>{{addressInfo.name}}</span><span class="tel">{{addressInfo.tel}}</span></div>
@@ -55,14 +55,22 @@
       <div class="bar-item ">总价：{{totalPrice | moneyFilter}}</div>
       <div class="bar-item bar-item-right" ><van-button type="danger" @click="submit">提交订单</van-button></div>
     </div>
+    <van-popup v-model="showAddressList" position="right">
+      <van-nav-bar fixed left-text="返回" title="管理收货地址" fixed left-arrow @click-left="showAddressList = false" />
+      <AddressList :list="addressList" @onselect="toggleAddress" />
+    </van-popup>
   </div>
 </template>
 
 <script>
   import {toMoney} from '@/filter/moneyFilter.js';
+  import AddressList from '@/components/component/addressList.vue';
   import url from '../../serviceAPI.config';
   export default {
     name: "Settlement",
+    components: {
+      AddressList
+    },
     filters: {
       moneyFilter:(money) => toMoney(money)
     },
@@ -71,7 +79,9 @@
         goodsInfo: [],
         totalPrice:0,
         addressInfo:{},
-        message:''
+        message:'',
+        showAddressList: false,
+        addressList:[]
       }
     },
     created() {
@@ -116,6 +126,11 @@
                   }
                 })
               }
+              this.addressList = res.data.message;
+              this.addressList.forEach(v => {
+                v['id'] = v._id;
+                v['address'] = v.province+v.city+v.county+v.address_detail
+              })
             }else if(res.data.code ===500){
               this.$toast('服务器错误');
             }
@@ -136,6 +151,11 @@
             console.log(err)
           })
         }
+      },
+      toggleAddress(item) {
+        // console.log(item)
+        this.addressInfo = item;
+        this.showAddressList = false;
       }
     }
   }

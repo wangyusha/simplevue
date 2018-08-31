@@ -16,6 +16,7 @@ const URL = {
   editorAddress: LOCALURL + 'editorAddress', //添加或编辑地址
   getAddressList: LOCALURL + 'getAddressList', //获取地址列表
   saveOrder: LOCALURL + 'saveOrder', //提交订单
+  getOrder: LOCALURL + "getOrder", //订单列表
 
 }
 

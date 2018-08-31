@@ -11,6 +11,7 @@ import Main from '@/components/pages/Main';
 import Search from '@/components/pages/Search';
 import Settlement from '@/components/pages/Settlement';
 import AddressEditor from '@/components/pages/AddressEditor';
+import MyOrder from '@/components/pages/MyOrder';
 
 Vue.use(Router)
 
@@ -34,7 +35,10 @@ export default new Router({
       },{
         path: 'center',
         name: 'Center',
-        component: Center
+        component: Center,
+        meta: {
+          verify: true
+        }
       }
     ]},
     {
@@ -64,6 +68,13 @@ export default new Router({
       path: '/addressEditor',
       name: 'AddressEditor',
       component: AddressEditor,
+      meta: {
+        verify: true
+      }
+    }, {
+      path: '/myOrder',
+      name: 'MyOrder',
+      component: MyOrder,
       meta: {
         verify: true
       }

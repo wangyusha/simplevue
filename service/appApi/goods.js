@@ -129,7 +129,7 @@ router.post('/getGoodsListByCategorySubID',async(ctx) => {
 /*
 * 关键字查询*/
 router.post('/keywordSearch',async(ctx) => {
-  console.log(ctx.request.body)
+  // console.log(ctx.request.body)
   try {
     let keyword = ctx.request.body.keyword;
     let page = ctx.request.body.page || 1;

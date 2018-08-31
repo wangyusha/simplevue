@@ -7,17 +7,14 @@
       <img :src="userInfo.photoUrl" class="top-img" />
       <div>{{userInfo.userName}}</div>
     </div>
-    <div class="login">
-      <div><van-button type="primary" @click="$router.push('/login')">我要登录</van-button></div>
-      <div><van-button type="primary" @click="$router.push('/register')">我要注册</van-button></div>
-    </div>
     <div>
       <van-cell-group>
-        <van-cell title="会员卡" is-link />
-        <van-cell title="地址管理" is-link  />
-        <van-cell title="我的订单" is-link  />
-        <van-cell title="会员权益" is-link />
-        <van-cell title="联系我们" is-link  />
+        <van-cell title="会员卡" icon="idcard" is-link />
+        <van-cell title="地址管理" icon="free-postage" is-link  />
+        <van-cell title="我的订单" icon="records" @click="$router.push('/myOrder')" is-link  />
+        <van-cell title="会员权益" icon="like" is-link />
+        <van-cell title="联系我们" icon="phone" is-link  />
+        <van-cell title="退出" icon="setting" is-link  @click="layout" />
       </van-cell-group>
 
     </div>
@@ -36,6 +33,18 @@
     created() {
       if(localStorage.userInfo){
         this.userInfo = JSON.parse(localStorage.userInfo)
+      }
+    },
+    methods: {
+      layout() {
+        this.$dialog.confirm({
+          title: '提示',
+          message: '确认退出吗！',
+          showCancelButton: true,
+        }).then(() => {
+          localStorage.clear();
+          this.$router.push('/')
+        })
       }
     }
 

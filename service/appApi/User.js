@@ -196,4 +196,32 @@ router.post('/saveOrder',async(ctx) => {
     }
   })
 })
+
+/*
+* 订单列表*
+* 0：全部
+* 1：待付款
+* 2：待发货
+* 3：待收货
+* 4：待评价*/
+router.post('/getOrder',async(ctx) => {
+  // console.log(ctx.request.body)
+  try {
+    let userId = ctx.request.body.userId;
+    let page = ctx.request.body.page || 1;
+    let num = ctx.request.body.num || 10;
+    let status = ctx.request.body.status || 0;
+    let start = (page-1) * num;
+    let Order= mongoose.model('Order');
+    let result;
+    if(status == 0) {
+      result = await Order.find({userId:userId}).skip(start).limit(num).exec();
+    } else {
+      result = await Order.find({userId:userId,status:status-1}).skip(start).limit(num).exec();
+    }
+    ctx.body = {code: 200,message: result}
+  }catch (err) {
+    ctx.body ={code: 500, message: err}
+  }
+})
 module.exports=router;

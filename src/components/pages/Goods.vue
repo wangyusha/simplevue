@@ -143,7 +143,7 @@
         // this.$router.push({name:'Cart'})  //进行跳转
       },
       goCart() {
-        this.$router.push({name:'Cart'})
+        this.$router.replace('/main/Cart')
       },
       tabChange(index,title) {
         // console.log(index,title)

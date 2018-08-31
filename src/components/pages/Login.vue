@@ -27,7 +27,8 @@
         :error-message="passwordErrorMsg"
       />
       <div class="register-button">
-        <van-button type="primary" size="large" @click=" loginAction" :loading="openLoading">登录</van-button>
+        <van-button type="primary" size="large" @click="loginAction" :loading="openLoading">登录</van-button>
+        <van-button class="reg" type="primary" size="large" plain @click="$router.push('/register')" >注册</van-button>
       </div>
     </div>
 
@@ -123,5 +124,8 @@
   }
   .register-button{
     padding-top:10px;
+  }
+  .register-button .reg{
+    margin-top: 20px;
   }
 </style>
