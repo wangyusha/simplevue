@@ -187,7 +187,8 @@ router.post('/saveOrder',async(ctx) => {
   await newOrder.save().then(() => {
     ctx.body ={
       code: 200,
-      message: '提交订单成功'
+      message: '提交订单成功',
+      orderNum: orderNum
     }
   }).catch(err=> {
     ctx.body ={

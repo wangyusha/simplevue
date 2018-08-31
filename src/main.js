@@ -7,7 +7,7 @@ import Navigation from 'vue-navigation'
 import {Button, Row, Col,Icon ,Swipe, SwipeItem,Lazyload,List,NavBar,
   Field,Toast,Tab, Tabs, GoodsAction, GoodsActionBigBtn, GoodsActionMiniBtn,
   PullRefresh,Stepper,Tabbar,AddressEdit, TabbarItem,Checkbox, CheckboxGroup, Dialog,
-  Cell, CellGroup,Sku,Search,Tag,ImagePreview,AddressList,Popup,Card} from 'vant';
+  Cell, CellGroup,Sku,Search,Tag,ImagePreview,AddressList,Popup,Card,RadioGroup, Radio} from 'vant';
 import './uitil/rem.js';
 import axios from 'axios';
 
@@ -17,7 +17,7 @@ Vue.use(Button).use(Row).use(Col).use(Icon).use(AddressEdit)
   .use(GoodsActionBigBtn).use(GoodsActionMiniBtn).use(PullRefresh).use(Stepper)
   .use(Tabbar).use(TabbarItem).use(Checkbox).use(CheckboxGroup).use(Dialog)
   .use(Cell).use(CellGroup).use(Sku).use(Search).use(Tag).use(ImagePreview)
-  .use(AddressList).use(Popup).use(Card);
+  .use(AddressList).use(Popup).use(Card).use(RadioGroup).use(Radio);
 Vue.use(Navigation, {router});
 
 Vue.config.productionTip = false;

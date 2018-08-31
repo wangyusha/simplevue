@@ -133,6 +133,7 @@ router.post('/keywordSearch',async(ctx) => {
   try {
     let keyword = ctx.request.body.keyword;
     let page = ctx.request.body.page || 1;
+    console.log(page)
     let num = ctx.request.body.num || 10;
     let start = (page-1) * num;
     let Goods= mongoose.model('Goods');

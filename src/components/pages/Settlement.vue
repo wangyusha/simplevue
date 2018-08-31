@@ -146,7 +146,10 @@
             addressId: this.addressInfo._id,
             goods: this.goodsInfo
           }).then( res => {
-            console.log(res)
+            if(res.data.code ===200) {
+              // console.log(res.data.orderNum)
+              this.$router.push({name: 'Applay' ,query:{orderNo:encodeURI(res.data.orderNum)}})
+            }
           }).catch( err => {
             console.log(err)
           })

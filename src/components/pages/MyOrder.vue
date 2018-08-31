@@ -25,6 +25,11 @@
           </van-cell>
         </van-cell-group>
       </van-list>
+      <div class="emty" v-if="orderList.length == 0 && finished">
+        <div class="emty-icon"><van-icon name="description" /></div>
+        <div>暂无相关订单</div>
+        <van-button plain type="warning" size="small" @click="$router.push({name: 'CategoryList'})">去逛逛</van-button>
+      </div>
     </div>
   </div>
 </template>
@@ -42,7 +47,8 @@
         loading: false,
         finished: false,
         orderList:[],
-        userId: ''
+        userId: '',
+        empty: false
       }
     },
     created() {
@@ -59,9 +65,9 @@
     },
     methods: {
       tabChange(index,title) {
+        this.orderList = [];
         this.active = index;
         this.page = 1;
-        this.orderList = [];
         this.finished = false;
         this.onLoad();
       },
@@ -78,7 +84,7 @@
               v.totalNum =0;
               v.totalPrice=0;
               v.goods.forEach(e=> {
-                console.log(e)
+                // console.log(e)
                 v.totalNum += e.count;
                 v.totalPrice += e.count*e.price;
               })
@@ -114,5 +120,13 @@
   .opreat-btn{
     text-align: right;
     margin-top: 10px;
+  }
+  .emty{
+    padding-top: 6rem;
+    text-align: center;
+  }
+  .emty .emty-icon{
+    color: #5c5c5c;
+    font-size: 3rem;
   }
 </style>

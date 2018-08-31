@@ -232,7 +232,7 @@
   }
   .cart-empty{
     text-align: center;
-    padding-top: 10rem;
+    padding: 10rem 0;
     color:  #ff5d38;
     font-size: 22px;
   }

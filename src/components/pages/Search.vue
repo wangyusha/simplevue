@@ -61,7 +61,7 @@
       let winHeight = document.documentElement.clientHeight;
       let sLIist = this.$refs.sList;
       // console.log(winHeight)
-      sLIist.style.height = winHeight-42 + 'px';
+      sLIist.style.height = winHeight-44 + 'px';
     },
     methods: {
       onSearch() {
@@ -78,6 +78,7 @@
         },1000)
       },
       getList() {
+        console.log(this.page)
         this.$http.post(url.keywordSearch,{keyword: this.keyword,page: this.page,num: this.num})
           .then( res => {
             // console.log(res.data)

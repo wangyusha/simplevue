@@ -12,6 +12,8 @@ import Search from '@/components/pages/Search';
 import Settlement from '@/components/pages/Settlement';
 import AddressEditor from '@/components/pages/AddressEditor';
 import MyOrder from '@/components/pages/MyOrder';
+import Applay from '@/components/pages/Applay';
+
 
 Vue.use(Router)
 
@@ -75,6 +77,14 @@ export default new Router({
       path: '/myOrder',
       name: 'MyOrder',
       component: MyOrder,
+      meta: {
+        verify: true
+      }
+    },
+    {
+      path: '/applay',
+      name: 'Applay',
+      component: Applay,
       meta: {
         verify: true
       }
