@@ -35,7 +35,7 @@ export default new Router({
         name: 'Cart',
         component: Cart
       },{
-        path: 'center',
+        path: 'Center',
         name: 'Center',
         component: Center,
         meta: {
@@ -85,7 +85,7 @@ export default new Router({
       path: '/applay',
       name: 'Applay',
       component: Applay,
-      meta: {
+      meta:{
         verify: true
       }
     }

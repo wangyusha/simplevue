@@ -7,6 +7,10 @@
       @edit="onEdit"
       @select="selected"
     />
+    <div class="empty-address" v-if="list.length ==0">
+      <div class="empty-icon"><van-icon name="logistics" /></div>
+      <div>暂无收货地址！</div>
+    </div>
   </div>
 </template>
 
@@ -50,5 +54,17 @@
 .address-list{
   padding-top: 46px;
   box-sizing: border-box;
+  position: relative;
+}
+  .empty-address {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+  }
+.empty-address .empty-icon{
+  font-size: 3rem;
+  color: #5c5c5c;
 }
 </style>

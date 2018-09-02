@@ -4,7 +4,7 @@
       <van-nav-bar  title="会员中心" />
     </div>
     <div class="top">
-      <img :src="photoUrl" class="top-img" @click="showUpload = true" />
+      <img :src="userInfo.photoUrl" class="top-img" @click="showUpload = true" />
       <div>{{userInfo.userName}}</div>
     </div>
     <div>
@@ -48,8 +48,7 @@
         addressList: [],
         showUpload: false,
         upLoadUrl: '',
-        file: {}, //上传文件参数
-        photoUrl: ''
+        file: {},//上传文件参数
       }
     },
     created() {
@@ -95,15 +94,24 @@
         this.file = f.file;
       },
       upLoadImg() {
+        // console.log(this.file)
+        // console.log(this.file.name)
+        if(!this.file.name) {
+          this.$toast('请选择图片');
+          return;
+        }
         let param = new FormData();
-        param.append('file',this.file)
+        // let userId = this.userInfo.userId;
+        param.append('file',this.file);
+        param.append('message',this.userInfo.userId)
         let config = {
           headers:{'Content-Type':'multipart/form-data'}
         }; //添加请求头
         this.$http.post(url.upFile,param,config)
           .then(res =>{
             if(res.data.code === 200) {
-                this.photoUrl = res.data.path;
+                this.userInfo.photoUrl = res.data.path;
+                localStorage.userInfo = JSON.stringify(this.userInfo);
             }
           }).catch( err => {
             console.log(err)

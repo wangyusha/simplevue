@@ -34,6 +34,8 @@
       this.$navigation.on('back', (to, from) => {
         this.transitionName = 'slide-right'
       })
+      let rArr = this.$route.path.split('/');
+      this.switchSelect(rArr[rArr.length -1])
     },
     mounted() {
       // console.log(this.active)
@@ -55,12 +57,10 @@
             this.$router.push({name: 'Center'});
             break;
         }
-      }
-    },
-    watch: {
-      $route(to,from) {
-        switch (to.name) {
-          case 'ShoppingMall' :
+      },
+      switchSelect(s) {
+        switch (s) {
+          case ('ShoppingMall'|| '') :
             this.active = 0;
             break;
           case 'CategoryList' :
@@ -73,6 +73,11 @@
             this.active = 3;
             break;
         }
+      }
+    },
+    watch: {
+      $route(to,from) {
+        this.switchSelect(to.name)
       }
     }
   }

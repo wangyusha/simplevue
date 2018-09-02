@@ -34,7 +34,7 @@
         <router-link class="goBrowse" to="/main/CategoryList">去逛逛</router-link>
       </div>
     </div>
-    <div class="buy-bar">
+    <div class="buy-bar" v-if="cartInfo.length != 0">
       <div class="bar-item bar-item-left"><van-checkbox v-model="isAllSelect"  @change="allChange">全选</van-checkbox></div>
       <div class="bar-item ">总价：{{totalPrice | moneyFilter}}</div>
       <div class="bar-item bar-item-right" ><van-button type="danger" @click="delAndSet">{{toggleTitle}}</van-button></div>

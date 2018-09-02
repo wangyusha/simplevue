@@ -25,10 +25,27 @@ const storage = multer.diskStorage({
  */
 router.post('/upFile',multer({storage}).single('file'),async(ctx) => {
   const {originalname, mimetype, filename, path, size} = ctx.req.file;
-  const {userId} = ctx.request.body;
+  let userId = ctx.req.body.message;
   let fullPath = 'http://192.168.1.3:3000/' + UPPATH +'/' + filename;
   let Upload = mongoose.model('UpLoad');
-  let newUpload = new Upload({originalname, mimetype, filename, path, size});
+  let checkResult = await Upload.find({userId: userId}).exec();
+  // console.log(checkResult)
+  if(checkResult.length > 0) {
+    for(let i = checkResult.length;i--;) {
+      let path = checkResult[i].path.replace(/\\/g,'/');
+      if(path.startsWith(UPPATH)) {
+        try {
+          fs.unlinkSync(path)
+        }catch (e) {
+
+        }
+      }
+    }
+  }
+  await Upload.remove({userId: userId}).exec();
+  let User = mongoose.model('User');
+  let result = await User.update({_id: userId},{$set: {photoUrl: fullPath}}).exec();
+  let newUpload = new Upload({userId,originalname, mimetype, filename, path, size});
   await newUpload.save().then(() => {
     ctx.body ={
       code: 200,

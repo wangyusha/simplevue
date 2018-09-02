@@ -75,7 +75,12 @@
                       setTimeout(()=>{resolve()},500)
                     }).then(()=>{
                       this.$toast.success('登录成功')
-                      this.$router.push({path:decodeURIComponent(this.$route.query.url)})
+                      if(this.$route.query.url){
+                        this.$router.push({path:decodeURIComponent(this.$route.query.url)})
+                      }else {
+                        this.$router.push('/main')
+                      }
+                      //
                     }).catch(err=>{
                       this.$toast.fail('登录状态保存失败')
                       console.log(err)

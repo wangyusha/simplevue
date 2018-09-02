@@ -154,6 +154,8 @@
           }).catch( err => {
             console.log(err)
           })
+        }else {
+          this.$toast('请选择地址！')
         }
       },
       toggleAddress(item) {
