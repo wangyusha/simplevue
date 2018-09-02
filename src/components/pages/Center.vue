@@ -3,9 +3,12 @@
     <div>
       <van-nav-bar  title="会员中心" />
     </div>
-    <div class="top">
-      <img :src="userInfo.photoUrl" class="top-img" @click="showUpload = true" />
-      <div>{{userInfo.userName}}</div>
+    <div class="top" :style="{backgroundImage:`url(${userInfo.photoUrl})`}">
+      <div class="photo-name">
+        <img :src="userInfo.photoUrl" class="top-img" @click="showUpload = true" />
+        <div>{{userInfo.userName}}</div>
+      </div>
+
     </div>
     <div>
       <van-cell-group>
@@ -136,8 +139,31 @@
     height:5rem;
     text-align: center;
     padding:2rem 0;
-    background-color: #e5017d;
+    position: relative;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: #fff;
+  }
+  .top::after {
+    content: "";
+    width:100%;
+    height:100%;
+    position: absolute;
+    left:0;
+    top:0;
+    background: inherit;
+    filter: blur(8px);
+  }
+  .photo-name{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 3;
+  }
+  .photo-name img{
+    border: 3px solid #e5017d;
   }
   .login{
     display: flex;

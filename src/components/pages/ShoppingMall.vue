@@ -12,7 +12,7 @@
     </div>
     <!-- 商品分类栏目 -->
     <div class="type-bar">
-      <div v-for="(cate,index) in category" :key="index">
+      <div v-for="(cate,index) in category" :key="index" @click="$router.push({name:'CategoryList',query: {CategoryId: cate.mallCategoryId}})">
         <img v-lazy="cate.image" width="90%"/>
         <span>{{cate.mallCategoryName}}</span>
       </div>

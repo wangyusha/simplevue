@@ -72,7 +72,12 @@
           }
         },
         created() {
-          this.getCategory();
+          if(this.$route.query.CategoryId) {
+            this.getCategory(true);
+            this.clickCategory(this.$route.query.CategoryId-1,this.$route.query.CategoryId)
+          }else {
+            this.getCategory(false);
+          }
         },
         mounted() {
           let winHeight = document.documentElement.clientHeight;
@@ -81,13 +86,15 @@
           document.getElementById('list-div').style.height=winHeight-140 +'px'
         },
         methods: {
-          getCategory() {
+          getCategory(isId) {
             this.$http.get(url.getCategoryList)
               .then( res => {
                 // console.log(res);
                 if(res.data.code == 200 && res.data.message) {
                   this.category = res.data.message;
-                  this.getCategorySubByCategoryId(this.category[0].ID);
+                  if(!isId) {
+                    this.getCategorySubByCategoryId(this.category[0].ID);
+                  }
                 }else {
                   this.$toast('服务器错误')
                 }
