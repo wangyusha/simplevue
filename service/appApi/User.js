@@ -1,10 +1,53 @@
 const router = require('koa-router')();
+const multer = require('koa-multer');
 const mongoose = require('mongoose');
+const fs = require('fs');
 // const  router = new Router;
 router.get('/',async(ctx) =>{
   ctx.body = '这是用户操作首页'
 });
+const UPPATH = 'static/img';
+//文件上传配置
+const storage = multer.diskStorage({
+  destination: (req,file,cb) => {
+    if(!fs.existsSync(UPPATH)) {
+      fs.mkdirSync(UPPATH)
+    }
+    cb(null,UPPATH)
+  },
+  filename: (req,file,cb) => {
+    let fileFormat = (file.originalname).split(".");
+    cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
+  }
+})
+/**
+ * 上传图片
+ */
+router.post('/upFile',multer({storage}).single('file'),async(ctx) => {
+  const {originalname, mimetype, filename, path, size} = ctx.req.file;
+  const {userId} = ctx.request.body;
+  let fullPath = 'http://192.168.1.3:3000/' + UPPATH +'/' + filename;
+  let Upload = mongoose.model('UpLoad');
+  let newUpload = new Upload({originalname, mimetype, filename, path, size});
+  await newUpload.save().then(() => {
+    ctx.body ={
+      code: 200,
+      message: '上传成功',
+      path: fullPath
+    }
+  }).catch(err=> {
+    ctx.body ={
+      code: 500,
+      message: '上传失败'
+    }
+  })
 
+
+});
+
+/**
+ * 注册
+ */
 router.post('/register',async(ctx)=>{
   let params= ctx.request.body;
   // await connect();
@@ -135,8 +178,11 @@ router.get('/getCity',async (ctx) =>{
  */
 router.post('/editorAddress',async (ctx) => {
   let {state,userId,addressInfo} = ctx.request.body;
-  let obj = {userId,...addressInfo}
-  let Address = mongoose.model('Address')
+  let obj = {userId,...addressInfo};
+  let Address = mongoose.model('Address');
+  if(addressInfo.isDefault) {
+    await Address.update({isDefault: true},{$set:{isDefault:false}},{multi: true}).exec();
+  }
   if(state === 0){
     let newAddress = new Address(obj)
     await newAddress.save().then(() => {
@@ -150,16 +196,77 @@ router.post('/editorAddress',async (ctx) => {
         message:err
       }
     })
+  }else {
+    await Address.update({_id: addressInfo._id},{$set: {
+        addressDetail: addressInfo.addressDetail,
+        areaCode: addressInfo.areaCode,
+        city: addressInfo.city,
+        county: addressInfo.county,
+        isDefault: addressInfo.isDefault,
+        name: addressInfo.name,
+        postalCode: addressInfo.postalCode,
+        province: addressInfo.province,
+        tel: addressInfo.tel
+      }}).then(() => {
+      ctx.body ={
+        code:200,
+        message:'编辑地址成功'
+      }
+    }).catch( err => {
+      ctx.body ={
+        code:500,
+        message:err
+      }
+    })
   }
 })
 /**
- * 地址列表
+ * 删除地址
+ */
+router.post('/moveAddress',async(ctx) => {
+    let addressId = ctx.request.body.addressId;
+    let Address = mongoose.model('Address')
+    await Address.remove({_id: addressId}).then(() => {
+      ctx.body ={
+        code:200,
+        message:'请求成功'
+      }
+    }).catch( err => {
+      ctx.body ={
+        code:500,
+        message:err
+      }
+    })
+})
+
+/**
+ * 地址列表userId
  */
 router.post('/getAddressList',async (ctx) => {
   try {
     let userId = ctx.request.body.userId;
     let Address = mongoose.model('Address')
     let result = await Address.find({userId:userId}).exec();
+    // console.log(result)
+    ctx.body = {
+      code: 200,
+      message: result
+    }
+  }catch( err) {
+    ctx.body = {
+      code: 500,
+      message: err
+    }
+  }
+})
+/**
+ * 根据地质id查询地址
+ */
+router.post('/addressById',async (ctx) => {
+  try {
+    let addressId = ctx.request.body. addressId;
+    let Address = mongoose.model('Address')
+    let result = await Address.find({_id:addressId}).exec();
     // console.log(result)
     ctx.body = {
       code: 200,

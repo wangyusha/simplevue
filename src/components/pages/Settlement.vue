@@ -9,7 +9,7 @@
           <span slot="icon" class="address-icon"><van-icon name="location" color="#38f"/></span>
           <template slot="title">
             <div><span>{{addressInfo.name}}</span><span class="tel">{{addressInfo.tel}}</span></div>
-            <div>{{addressInfo.province}}{{' '+addressInfo.county}}{{' '+addressInfo.city}}{{' '+addressInfo.address_detail}}</div>
+            <div>{{addressInfo.province}}{{' '+addressInfo.county}}{{' '+addressInfo.city}}{{' '+addressInfo.addressDetail}}</div>
           </template>
         </van-cell>
         <van-cell  is-link  class="add-address" @click="goEditor" v-else>
@@ -52,12 +52,12 @@
     <!--<van-submit-bar :price="totalPrice*100" button-text="提交订单"/>-->
     <div class="buy-bar">
       <div class="bar-item bar-item-left"></div>
-      <div class="bar-item ">总价：{{totalPrice | moneyFilter}}</div>
+      <div class="bar-item ">总价：￥{{totalPrice | moneyFilter}}</div>
       <div class="bar-item bar-item-right" ><van-button type="danger" @click="submit">提交订单</van-button></div>
     </div>
     <van-popup v-model="showAddressList" position="right">
       <van-nav-bar fixed left-text="返回" title="管理收货地址" fixed left-arrow @click-left="showAddressList = false" />
-      <AddressList :list="addressList" @onselect="toggleAddress" />
+      <AddressList :list="addressList" @onselect="toggleAddress" :id="addressInfo._id" />
     </van-popup>
   </div>
 </template>
@@ -117,19 +117,20 @@
           .then( res => {
             // console.log(res)
             if(res.data.code ===200 && res.data.message.length >0 ){
-              if(res.data.message.length == 1) {
-                this.addressInfo = res.data.message[0]
-              }else {
+                let flag = false;
                 res.data.message.forEach( v => {
-                  if(v.is_default) {
+                  if(v.isDefault) {
                     this.addressInfo = v;
+                    flag = true
                   }
                 })
-              }
+                if(!flag) {
+                  this.addressInfo = res.data.message[0]
+                }
               this.addressList = res.data.message;
               this.addressList.forEach(v => {
                 v['id'] = v._id;
-                v['address'] = v.province+v.city+v.county+v.address_detail
+                v['address'] = v.province+v.city+v.county+v.addressDetail
               })
             }else if(res.data.code ===500){
               this.$toast('服务器错误');

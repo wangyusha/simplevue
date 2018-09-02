@@ -17,6 +17,9 @@ const URL = {
   getAddressList: LOCALURL + 'getAddressList', //获取地址列表
   saveOrder: LOCALURL + 'saveOrder', //提交订单
   getOrder: LOCALURL + "getOrder", //订单列表
+  addressById: LOCALURL + 'addressById', //id得到地址
+  moveAddress: LOCALURL +'moveAddress', //删除地址
+  upFile: LOCALURL + 'upFile', //上传文件
 
 }
 

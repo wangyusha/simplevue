@@ -13,7 +13,7 @@
 <script>
   export default {
     name: "address-list",
-    props:['list'],
+    props:['list','opreat','id'],
     mounted() {
       let winHeight = document.documentElement.clientHeight;
       let winWidth = document.documentElement.clientWidth;
@@ -24,7 +24,7 @@
     },
     data() {
       return {
-        chosenAddressId: this.list[0].id,
+        chosenAddressId: this.id,
       }
     },
 
@@ -33,6 +33,10 @@
         this.$router.push({name:'AddressEditor'})
       },
       onEdit(item, index) {
+        if(this.opreat ==2) {
+          // console.log(item, index)
+          this.$router.push({name:'AddressEditor', query: {id:item.id}})
+        }
       },
       selected(item,index){
         // console.log(item,index)

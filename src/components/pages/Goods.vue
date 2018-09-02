@@ -43,7 +43,7 @@
 
     <!--</div>-->
     <van-goods-action :style="{zIndex:100}" >
-      <van-goods-action-mini-btn icon="chat" text="客服"  />
+      <van-goods-action-mini-btn icon="like-o" text="收藏"  />
       <van-goods-action-mini-btn icon="cart" text="购物车" @click="goCart" :info=" cartCount" />
       <van-goods-action-big-btn text="加入购物车" @click="addGooodsToCart" />
       <van-goods-action-big-btn text="立即购买" @click="onGoBuy" primary />
@@ -89,7 +89,15 @@
       },
       onGoBuy() {
         // console.log('111')
-        this.showSku = true;
+        let goodsInfo = {
+          Name: this.goodsInfo.NAME,
+          count: 1,
+          goodsId: this.goodsInfo.ID,
+          image: this.goodsInfo.IMAGE1,
+          price: this.goodsInfo.PRESENT_PRICE
+        }
+        localStorage.settlementGoods = JSON.stringify([goodsInfo]);
+        this.$router.push('/Settlement')
       },
       //图片预览
       preview(){
