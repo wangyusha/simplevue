@@ -13,7 +13,7 @@ import Settlement from '@/components/pages/Settlement';
 import AddressEditor from '@/components/pages/AddressEditor';
 import MyOrder from '@/components/pages/MyOrder';
 import Applay from '@/components/pages/Applay';
-
+import BaiduMap from '@/components/component/BaiduMap';
 
 Vue.use(Router)
 
@@ -88,6 +88,11 @@ export default new Router({
       meta:{
         verify: true
       }
+    },
+    {
+      path: '/map',
+      name: 'Map',
+      component: BaiduMap
     }
   ]
 })

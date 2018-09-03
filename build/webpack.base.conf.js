@@ -78,5 +78,9 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
+  },
+  externals: {
+    'BMap': 'BMap',
+    'BMap_Symbol_SHAPE_POINT': 'BMap_Symbol_SHAPE_POINT'
   }
 }

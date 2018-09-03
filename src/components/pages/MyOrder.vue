@@ -11,7 +11,7 @@
 
       </van-tab>
     </van-tabs>
-    <div class="order-box" ref="orderBox">
+    <div class="order-box" ref="orderBox" :style="{height: '577px'}">
       <van-list v-model="loading" :finished="finished" @load="onLoad">
         <van-cell-group>
           <van-cell v-for="item in orderList" :key="item._id">
@@ -61,7 +61,7 @@
       let winHeight = document.documentElement.clientHeight;
       let orderBox = this.$refs.orderBox;
       // console.log(orderBox)
-      orderBox.style.height = winHeight-90 + 'px';
+      // orderBox.style.height = winHeight-90 + 'px';
     },
     methods: {
       tabChange(index,title) {
@@ -78,8 +78,8 @@
           num: this.num,
           status: this.active
         }).then( res => {
-          if(res.data.code ===200 && res.data.message.length>0) {
-            this.page ++;
+          if(res.data.code ==200 && res.data.message.length>0) {
+
             res.data.message.forEach(v=> {
               v.totalNum =0;
               v.totalPrice=0;
@@ -89,12 +89,12 @@
                 v.totalPrice += e.count*e.price;
               })
             })
-            // console.log( res.data.message)
             this.orderList = [...this.orderList,...res.data.message];
           }else  {
             this.finished = true;
           }
           this.loading = false;
+          this.page ++;
         }).catch( err => {
           console.log(err)
         })
@@ -102,7 +102,7 @@
       onLoad() {
         setTimeout(() => {
           this.getOrderList()
-        },1000)
+        },3000)
       }
     }
   }

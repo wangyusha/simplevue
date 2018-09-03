@@ -2,7 +2,7 @@
   <div> <!--search bar layout-->
     <div class="search-bar">
       <van-row gutter="5">
-        <van-col span="3" ><van-icon name="location" class="location-icon"  @click="getLocation"/></van-col>
+        <van-col span="3" ><van-icon name="location" class="location-icon"  @click="$router.push('/map')"/></van-col>
         <van-col span="16">
           <div @click="goSearch">
             <input type="text" class="search-input" disabled v-model="keyword" />
