@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div :style="{paddingTop:'45px'}">
     <van-nav-bar
       title="我的订单"
       left-text="返回"
       left-arrow
+      fixed
+      z-index="999"
       @click-left="$router.go(-1)"
     />
     <van-tabs v-model="active" sticky :swipe-threshold="5" @change="tabChange">

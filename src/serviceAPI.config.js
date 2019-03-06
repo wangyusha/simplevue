@@ -1,5 +1,6 @@
 const BASEURL = "https://www.easy-mock.com/mock/5ae2eeb23fbbf24d8cd7f0b6/SmileVue/";
-const LOCALURL =  "http://192.168.1.3:3000/";
+// const LOCALURL =  "http://192.168.1.3:3000/";
+const LOCALURL =  "http://120.79.36.181:3000/";
 const URL = {
   getShoppingMallInfo:BASEURL+'index',
   getGoodsInfo:BASEURL+'getGoodsInfo',
