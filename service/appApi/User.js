@@ -281,7 +281,7 @@ router.post('/getAddressList',async (ctx) => {
  */
 router.post('/addressById',async (ctx) => {
   try {
-    let addressId = ctx.request.body. addressId;
+    let addressId = ctx.request.body.addressId;
     let Address = mongoose.model('Address')
     let result = await Address.find({_id:addressId}).exec();
     // console.log(result)
@@ -347,6 +347,26 @@ router.post('/getOrder',async(ctx) => {
     ctx.body = {code: 200,message: result}
   }catch (err) {
     ctx.body ={code: 500, message: err}
+  }
+})
+/**
+ * 根据订单号查询订单
+ */
+router.post('/orderByOrderNum',async (ctx) => {
+  try {
+    let orderNum = ctx.request.body.orderNum;
+    let Order = mongoose.model('Order')
+    let result = await Order.find({orderNum :orderNum }).exec();
+    // console.log(result)
+    ctx.body = {
+      code: 200,
+      message: result
+    }
+  }catch( err) {
+    ctx.body = {
+      code: 500,
+      message: err
+    }
   }
 })
 module.exports=router;
